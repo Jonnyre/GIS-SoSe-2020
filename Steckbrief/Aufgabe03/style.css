@@ -1,0 +1,86 @@
+.navibar{
+    height: 200px;
+    background-color: darkred;
+    width: 800px;
+    border-radius: 30px;
+}
+
+#überschrift{
+    color: white;
+    padding: 30px;
+}
+
+nav{
+    position: fixed;
+    background-color: black;
+    margin-left: 33%;
+    border-radius: 10px;
+}
+
+nav a{
+    color: white;
+    text-decoration: none;
+}
+
+nav a:hover{
+    background-color: red;
+}
+
+nav #aktuell{
+    color: lightgreen;
+}
+
+
+#logo img{
+    width: 80px;
+    border-radius: 15px;
+}
+
+#logo img:hover{
+    height: 100px;
+    width: 100px;
+}
+
+body{
+    background-image: url("bg.png");
+    font-family: sans-serif;
+    text-align: center;
+    width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+main{
+    margin-top: 30px;
+}
+
+main h1, main h2, main h3{
+    color: red;
+    font-variant-caps: titling-caps;
+    text-align: left;
+}
+
+.formleft{
+    text-align: left;
+}
+
+form input, form button{
+    background-color: lightgray;
+    color: white;
+}
+
+form label{
+    color: lightgray;
+}
+
+form ::placeholder{
+    color: white;
+}
+
+#nachricht{
+    width: 240px;
+    height: 40px;
+}
+#beschreibung{
+    font-size: 8px;
+}

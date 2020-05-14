@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>Portfolio</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="navibar">
+            <nav>
+                <a id="aktuell" href="portfolio.html">Portfolio |</a>
+                <a href="about_me.htm">About me |</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+            <h1 id="überschrift">Dies ist meine Seite</h1>
+            <div>
+                <a id="logo" href="https://www.instagram.com/jonathanrissler/?hl=de"><img src="Instagram.jpg"
+                        alt="Instagram"></a>
+                <a id="logo" href="mailto:jonathan.rissler@hs-furtwangen.de"><img src="HFU_Logo.jpg" alt="Email"></a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <h2>Meine glorreichsten Errungenschaften (anders gesagt - einfach was ich auf meinem Handy gefunden hab)</h2>
+        <h3>Was ich zur Zeit am meisten vermisse</h3>
+        <img src="Trichter.gif" width="300" alt="Video beim Trichtern">
+        <hr>
+        <h3>Meine erste Trompetenprobe</h3>
+        <audio controls id="Meine_audio">
+            <source src="GoT_Trompete.mp4" type="audio/mp4"></audio>
+        <script>
+            var audio = document.getElementById("Meine_audio");
+            audio.volume = 0.01;
+        </script>
+        <hr>
+        <h3>Weil ich zu blöd war mir Gewichte zu merken - meine App</h3>
+        <img src="Pumpenapp.jpeg" width="300" alt="Pumpenapp">
+        <p>Es schadet <del>nie</del> ein wenig <strong>mehr</strong> <i>Tags</i> zu haben.</p>
+        <form>
+            <button type="button">Klick</button>
+        </form>
+    </main>
+</body>
+
+</html>

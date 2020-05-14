@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>Contact</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <div class="navibar">
+            <nav>
+                <a href="portfolio.html">Portfolio |</a>
+                <a href="about_me.htm">About me |</a>
+                <a id="aktuell" href="contact.html">Contact</a>
+            </nav>
+            <h1 id="überschrift">Dies ist meine Seite</h1>
+            <div>
+                <a id="logo" href="https://www.instagram.com/jonathanrissler/?hl=de"><img src="Instagram.jpg"
+                        alt="Instagram"></a>
+                <a id="logo" href="mailto:jonathan.rissler@hs-furtwangen.de"><img src="HFU_Logo.jpg" alt="Email"></a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <h1>Kontakt</h1>
+        <form class="formleft">
+            <input type="text" id="firstname" name="firstname" placeholder="Vorname">
+            <br>
+            <input type="text" id="lastname" name="lastname" placeholder="Nachname">
+            <br>
+            <input type="text" id="email" name="email" placeholder="E-Mail">
+            <br>
+            <input type="text" id="nachricht" name="nachricht" placeholder="Nachricht">
+            <br>
+            <label id="beschreibung" for="beschreibungstext">Mit Absenden der Nachricht bestätige ich den
+                Datenschutz</label><br>
+            <button type="button">absenden</button>
+        </form>
+        <form>
+            <input type="radio" id="genug" name="genug" value="genug Tags">
+            <label for="genug">Genug Tags?</label>
+            <br>
+            <input type="radio" id="nichtgenug" name="genug" value="nicht genug Tags">
+            <label for="genug">Nicht genug Tags</label>
+            <br>
+            <input type="radio" id="AMPEL" name="genug" value="AMPEL" checked>
+            <label for="genug">AMPEL!!11!1</label>
+        </form>
+        <form>
+            <label for="Fächer">Fächer:</label>
+            <select id="Fächer">
+                <option value="Computergrafik">Meth</option>
+                <option value="Marketing">Marketing...</option>
+                <option value="Mathe">Computergrafik</option>
+                <option value="GIS">GiSRocks!</option>
+            </select>
+        </form>
+        <img src="Ampel.jpg" alt="Ampel" width="200">
+        <p>Hoffentlich sind es <strong>jetzt</strong> <i>genug</i> Tags</p>
+    </main>
+</body>
+
+</html>
