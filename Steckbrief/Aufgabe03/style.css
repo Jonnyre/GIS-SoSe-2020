@@ -31,12 +31,12 @@ nav #aktuell{
 }
 
 
-#logo img{
+.logo img{
     width: 80px;
     border-radius: 15px;
 }
 
-#logo img:hover{
+.logo img:hover{
     height: 100px;
     width: 100px;
 }
