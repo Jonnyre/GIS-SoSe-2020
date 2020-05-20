@@ -6,7 +6,7 @@
     z-index: 1;
 }
 
-.navibar h1{
+.navibar h2{
     font-size: 60px;
     color: white;
     position: relative;
@@ -203,10 +203,6 @@ main{
 
 .artikel p{
     font-size: 12px;
-}
-
-.artikel > button{
-    size: 30px;
 }
 
 .preis{
