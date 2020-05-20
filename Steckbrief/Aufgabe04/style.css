@@ -191,6 +191,12 @@ main{
     flex-wrap: wrap;
 }
 
+.kategorie{
+  width: 100%;
+  color: black;
+  font-size: 20px;
+}
+
 .artikel{
     width: 300px;
     height: 300px;
@@ -228,7 +234,7 @@ main{
 
     .navibar img[src="Images/Logo.jpg"]{
       position: absolute;
-      left: 10%;
+      left: 4%;
       width: 50px;
       height: 50px;
     }
