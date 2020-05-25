@@ -204,20 +204,20 @@ main{
     border-style: groove;
 }
 
-.alleartikel img{
+.artikel img{
     margin-top: 20px;
     width: 150px;
     height: 150px;
 }
 
-.alleartikel img:hover{
+.artikel img:hover{
     opacity: 0.5;
 }
-.alleartikel h1{
+.artikel h1{
     font-size: 14px;
 }
 
-.alleartikel p{
+.artikel p{
     font-size: 12px;
     line-height: 1;
 }
