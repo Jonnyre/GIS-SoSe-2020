@@ -30,6 +30,9 @@ var Aufgabe05;
         divElem.appendChild(pElem2);
         pElem2.setAttribute("class", "preis");
         pElem2.innerHTML = Aufgabe05.articleBier[i].price;
+        let buttonElem2 = document.createElement("button");
+        buttonElem2.innerHTML = "In den Einkaufswagen";
+        divElem.appendChild(buttonElem2);
     }
     let divHeader2 = document.createElement("div");
     divHeader2.setAttribute("class", "kategorie");
@@ -58,6 +61,9 @@ var Aufgabe05;
         divElem.appendChild(pElem2);
         pElem2.setAttribute("class", "preis");
         pElem2.innerHTML = Aufgabe05.articleTier[i].price;
+        let buttonElem = document.createElement("button");
+        buttonElem.innerHTML = "In den Einkaufswagen";
+        divElem.appendChild(buttonElem);
     }
     document.getElementById("main")?.appendChild(divElemAll);
 })(Aufgabe05 || (Aufgabe05 = {}));

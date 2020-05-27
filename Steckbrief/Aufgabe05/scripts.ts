@@ -37,6 +37,10 @@ namespace Aufgabe05 {
         divElem.appendChild(pElem2);
         pElem2.setAttribute("class", "preis");
         pElem2.innerHTML = articleBier[i].price;
+
+        let buttonElem2: HTMLElement = document.createElement("button");
+        buttonElem2.innerHTML = "In den Einkaufswagen";
+        divElem.appendChild(buttonElem2);
     }
 
     let divHeader2: HTMLElement = document.createElement("div");
@@ -73,6 +77,10 @@ namespace Aufgabe05 {
         divElem.appendChild(pElem2);
         pElem2.setAttribute("class", "preis");
         pElem2.innerHTML = articleTier[i].price;
+
+        let buttonElem: HTMLElement = document.createElement("button");
+        buttonElem.innerHTML = "In den Einkaufswagen";
+        divElem.appendChild(buttonElem);
     }
 
     document.getElementById("main")?.appendChild(divElemAll);
