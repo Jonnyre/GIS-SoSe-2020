@@ -1,0 +1,279 @@
+.navibar{
+  position: fixed;
+    height: 200px;
+    top: 0px;
+    width: 100%;
+    background-color: #BEBEBE;
+    border-radius: 30px;
+    z-index: 1;
+}
+
+.navibar h2{
+    font-size: 40px;
+    color: white;
+    text-align: center;
+}
+
+.navibar img[src="Images/Logo.jpg"]{
+  position: absolute;
+  left: 40px;
+  top: 20px;
+  width: 140px;
+  height: 140px;
+  border-radius: 30px;
+
+}
+
+#toggle
+{
+  display: block;
+  position: fixed;
+  top: 170px;
+  left: 50px;
+  
+  z-index: 2;
+}
+
+#toggle a
+{
+  text-decoration: none;
+  color: black;
+  
+  transition: color 0.3s ease;
+}
+
+#toggle a:hover
+{
+  color: lightblue;
+}
+
+#toggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  
+  cursor: pointer;
+  
+  opacity: 0;
+  z-index: 502; 
+}
+
+#toggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  
+  background: black;
+  border-radius: 3px;
+  
+  z-index: 2;
+  
+  transform-origin: 4px 0px;
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0), 0.5s cubic-bezier(0.77,0.2,0.05,1.0), opacity 0.55s ease;
+}
+
+#toggle span:first-child
+{
+  transform-origin: 0% 0%;
+}
+
+#toggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+#toggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: black;
+}
+
+
+#toggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+#toggle input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+#menu
+{
+  position: absolute;
+  width: 300px;
+  margin: -100px 0 0 -50px;
+  padding: 50px;
+  padding-top: 125px;
+  
+  background: #ededed;
+  list-style-type: none;
+  
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+#toggle input:checked ~ ul
+{
+  transform: none;
+}
+
+.Menü{
+    position: absolute;
+    left: 15px;
+    top: 180px;
+    width: 70px;
+    height: 70px;
+}
+
+.Menü:hover ul{
+    display: block;
+    z-index: 500;
+}
+
+
+.Menü ul{
+    display: none;
+    list-style-type: none;
+    text-decoration: none;
+    position: absolute;
+    left: 0px;
+    top: 230px;
+}
+
+#Einkaufswagen{
+    position: fixed;
+    right: 40px;
+    top: 150px;
+    height: 50px;
+    width: 50px;
+    border-radius: 20px;
+}
+
+#Einkaufswagen:hover{
+    cursor: pointer;
+    z-index: 500;
+}
+
+#divAnzahl{
+  visibility: hidden;
+  background-color:  	#3CB371;
+  color: white;
+  position: fixed;
+  right: 10px;
+  top: 160px;
+  height: 30px;
+  width: 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+#Anzahl{
+  position: relative;
+  margin-top: 0px;
+  font-size: 22px;
+}
+main{
+    position: relative;
+    top: 210px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #EBEBEB;
+    border-radius: 30px;
+}
+
+.alleartikel{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.kategorie{
+  width: 100%;
+  color: black;
+  font-size: 20px;
+}
+
+.artikel{
+    width: 300px;
+    height: 315px;
+    line-height: 0.5;
+    border-style: groove;
+}
+
+.artikel img{
+    margin-top: 20px;
+    width: 150px;
+    height: 150px;
+}
+
+.artikel img:hover{
+    opacity: 0.5;
+}
+.artikel h1{
+    font-size: 14px;
+}
+
+.artikel p{
+    font-size: 12px;
+    line-height: 1;
+}
+
+.preis{
+    color: red;
+}
+
+@media only screen and (max-width: 600px)
+{
+    .navibar h2{
+      font-size: 30px;
+    }
+
+    .navibar img[src="Images/Logo.jpg"]{
+      position: absolute;
+      left: 4%;
+      width: 50px;
+      height: 50px;
+    }
+
+    #Einkaufswagen{
+      top: 160px;
+      height: 40px;
+      width: 40px;
+    }
+
+    #toggle{
+      top: 170px;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width:1024px)
+{
+  .navibar img[src="Images/Logo.jpg"]{
+    position: absolute;
+    left: 30px;
+
+    width: 90px;
+    height: 90px;
+  }
+}
