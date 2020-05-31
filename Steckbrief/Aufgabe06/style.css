@@ -214,27 +214,27 @@ main{
   font-size: 20px;
 }
 
-.artikel{
+.artikelBier, .artikelTier{
     width: 300px;
     height: 315px;
     line-height: 0.5;
     border-style: groove;
 }
 
-.artikel img{
+.artikelBier img, .artikelTier img{
     margin-top: 20px;
     width: 150px;
     height: 150px;
 }
 
-.artikel img:hover{
+.artikelBier img:hover, .artikelTier img:hover{
     opacity: 0.5;
 }
-.artikel h1{
+.artikelBier h1, .artikelTier h1{
     font-size: 14px;
 }
 
-.artikel p{
+.artikelBier p, .artikelTier p{
     font-size: 12px;
     line-height: 1;
 }
@@ -242,6 +242,7 @@ main{
 .preis{
     color: red;
 }
+
 
 @media only screen and (max-width: 600px)
 {

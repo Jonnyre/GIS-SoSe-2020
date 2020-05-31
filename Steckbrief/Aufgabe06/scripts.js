@@ -13,7 +13,8 @@ var Aufgabe06;
     divElemAll.appendChild(divHeader);
     for (let i = 0; i < Aufgabe06.articleBier.length; i++) {
         let divElem = document.createElement("div");
-        divElem.setAttribute("class", "artikel");
+        divElem.setAttribute("class", "artikelBier");
+        divElem.id = "bierDivNr" + i;
         divElemAll.appendChild(divElem);
         let imgElem = document.createElement("img");
         imgElem.setAttribute("src", Aufgabe06.articleBier[i].imgsrc);
@@ -45,7 +46,8 @@ var Aufgabe06;
     divElemAll.appendChild(divHeader2);
     for (let i = 0; i < Aufgabe06.articleTier.length; i++) {
         let divElem = document.createElement("div");
-        divElem.setAttribute("class", "artikel");
+        divElem.setAttribute("class", "artikelTier");
+        divElem.id = "tierDivNr" + i;
         divElemAll.appendChild(divElem);
         let imgElem = document.createElement("img");
         imgElem.setAttribute("src", Aufgabe06.articleTier[i].imgsrc);
@@ -74,6 +76,7 @@ var Aufgabe06;
         if (current.previousSibling) {
             if (current.previousSibling.firstChild?.nodeValue) {
                 let preis = current.previousSibling.firstChild?.nodeValue;
+                preis = preis.substring(0, preis.length - 1);
                 if (preis) {
                     gesamtpreis = gesamtpreis + parseFloat(preis);
                     console.log("Gesamtpreis: " + gesamtpreis + "€");
@@ -86,6 +89,66 @@ var Aufgabe06;
             divAnzahl.setAttribute("style", "visibility: visible");
         if (anzahl)
             anzahl.innerHTML = Number(anzahl.innerHTML) + Number("1") + "";
+    }
+    let anchorListenerBier = document.getElementById("bierAnker");
+    if (anchorListenerBier)
+        anchorListenerBier.addEventListener("click", handleClickMenuBier);
+    let anchorListenerTier = document.getElementById("plüschAnker");
+    if (anchorListenerTier)
+        anchorListenerTier.addEventListener("click", handleClickMenuTier);
+    let anchorListenerBoth = document.getElementById("bothAnker");
+    if (anchorListenerBoth)
+        anchorListenerBoth.addEventListener("click", handleClickMenuBoth);
+    function handleClickMenuTier(_event) {
+        let divId;
+        for (let i = 0; i < Aufgabe06.articleBier.length; i++) {
+            divId = "bierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divBier = document.getElementById(divId);
+                divBier?.setAttribute("style", "visibility: hidden");
+            }
+        }
+        for (let i = 0; i < Aufgabe06.articleTier.length; i++) {
+            divId = "tierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divTier = document.getElementById(divId);
+                divTier?.setAttribute("style", "visibility: visible");
+            }
+        }
+    }
+    function handleClickMenuBier(_event) {
+        let divId;
+        for (let i = 0; i < Aufgabe06.articleTier.length; i++) {
+            divId = "tierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divTier = document.getElementById(divId);
+                divTier?.setAttribute("style", "visibility: hidden");
+            }
+        }
+        for (let i = 0; i < Aufgabe06.articleBier.length; i++) {
+            divId = "bierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divBier = document.getElementById(divId);
+                divBier?.setAttribute("style", "visibility: visible");
+            }
+        }
+    }
+    function handleClickMenuBoth(_event) {
+        let divId;
+        for (let i = 0; i < Aufgabe06.articleBier.length; i++) {
+            divId = "bierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divBier = document.getElementById(divId);
+                divBier?.setAttribute("style", "visibility: visible");
+            }
+        }
+        for (let i = 0; i < Aufgabe06.articleTier.length; i++) {
+            divId = "tierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divTier = document.getElementById(divId);
+                divTier?.setAttribute("style", "visibility: visible");
+            }
+        }
     }
 })(Aufgabe06 || (Aufgabe06 = {}));
 //# sourceMappingURL=scripts.js.map

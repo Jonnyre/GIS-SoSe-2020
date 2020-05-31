@@ -15,7 +15,8 @@ namespace Aufgabe06 {
     for (let i: number = 0; i < articleBier.length; i++) {
 
         let divElem: HTMLElement = document.createElement("div");
-        divElem.setAttribute("class", "artikel");
+        divElem.setAttribute("class", "artikelBier");
+        divElem.id = "bierDivNr" + i; 
         divElemAll.appendChild(divElem);
 
         let imgElem: HTMLElement = document.createElement("img");
@@ -56,7 +57,8 @@ namespace Aufgabe06 {
     for (let i: number = 0; i < articleTier.length; i++) {
 
         let divElem: HTMLElement = document.createElement("div");
-        divElem.setAttribute("class", "artikel");
+        divElem.setAttribute("class", "artikelTier");
+        divElem.id = "tierDivNr" + i; 
         divElemAll.appendChild(divElem);
 
         let imgElem: HTMLElement = document.createElement("img");
@@ -94,6 +96,7 @@ namespace Aufgabe06 {
         if (current.previousSibling) {
             if (current.previousSibling.firstChild?.nodeValue) {
                 let preis: string = current.previousSibling.firstChild?.nodeValue;
+                preis = preis.substring(0, preis.length - 1);
 
                 if (preis) {
                     gesamtpreis = gesamtpreis + parseFloat(preis);
@@ -110,5 +113,74 @@ namespace Aufgabe06 {
         if (anzahl)
             anzahl.innerHTML = Number(anzahl.innerHTML) + Number("1") + "";
                 
+    }
+
+    let anchorListenerBier: HTMLElement | null = document.getElementById("bierAnker");
+    if (anchorListenerBier)
+        anchorListenerBier.addEventListener("click", handleClickMenuBier);
+
+    let anchorListenerTier: HTMLElement | null = document.getElementById("plüschAnker");
+    if (anchorListenerTier)
+        anchorListenerTier.addEventListener("click", handleClickMenuTier);
+
+    let anchorListenerBoth: HTMLElement | null = document.getElementById("bothAnker");
+    if (anchorListenerBoth)
+        anchorListenerBoth.addEventListener("click", handleClickMenuBoth);
+
+    function handleClickMenuTier(_event: Event): void {
+        let divId: string;
+        for (let i: number = 0; i < articleBier.length; i++) {
+            divId = "bierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divBier: HTMLElement | null =  document.getElementById(divId);
+                divBier?.setAttribute("style", "visibility: hidden");
+            }
+        }
+
+        for (let i: number = 0; i < articleTier.length; i++) {
+            divId = "tierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divTier: HTMLElement | null =  document.getElementById(divId);
+                divTier?.setAttribute("style", "visibility: visible");
+            }    
+        }
+    }
+
+    function handleClickMenuBier(_event: Event): void {
+        let divId: string;
+        for (let i: number = 0; i < articleTier.length; i++) {
+            divId = "tierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divTier: HTMLElement | null =  document.getElementById(divId);
+                divTier?.setAttribute("style", "visibility: hidden");
+            }    
+        }
+
+        for (let i: number = 0; i < articleBier.length; i++) {
+            divId = "bierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divBier: HTMLElement | null =  document.getElementById(divId);
+                divBier?.setAttribute("style", "visibility: visible");
+            }
+        }
+    }
+
+    function handleClickMenuBoth(_event: Event): void {
+        let divId: string;
+        for (let i: number = 0; i < articleBier.length; i++) {
+            divId = "bierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divBier: HTMLElement | null =  document.getElementById(divId);
+                divBier?.setAttribute("style", "visibility: visible");
+            }    
+        }
+
+        for (let i: number = 0; i < articleTier.length; i++) {
+            divId = "tierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divTier: HTMLElement | null =  document.getElementById(divId);
+                divTier?.setAttribute("style", "visibility: visible");
+            }    
+        }
     }
 }
