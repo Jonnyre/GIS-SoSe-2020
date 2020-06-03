@@ -31,7 +31,11 @@ var Aufgabe06;
         let pElem2 = document.createElement("p");
         divElem.appendChild(pElem2);
         pElem2.setAttribute("class", "preis");
-        pElem2.innerHTML = "" + Aufgabe06.articleBier[i].price;
+        pElem2.innerHTML = Aufgabe06.articleBier[i].price.toLocaleString("de-DE", {
+            style: "currency",
+            currency: "EUR",
+            maximumFractionDigits: 2
+        });
         let buttonElem2 = document.createElement("button");
         buttonElem2.innerHTML = "In den Einkaufswagen";
         buttonElem2.addEventListener("click", handleClick);
@@ -64,7 +68,11 @@ var Aufgabe06;
         let pElem2 = document.createElement("p");
         divElem.appendChild(pElem2);
         pElem2.setAttribute("class", "preis");
-        pElem2.innerHTML = "" + Aufgabe06.articleTier[i].price;
+        pElem2.innerHTML = Aufgabe06.articleTier[i].price.toLocaleString("de-DE", {
+            style: "currency",
+            currency: "EUR",
+            maximumFractionDigits: 2
+        });
         let buttonElem = document.createElement("button");
         buttonElem.innerHTML = "In den Einkaufswagen";
         buttonElem.addEventListener("click", handleClick);
@@ -76,9 +84,11 @@ var Aufgabe06;
         if (current.previousSibling) {
             if (current.previousSibling.firstChild?.nodeValue) {
                 let preis = current.previousSibling.firstChild?.nodeValue;
+                console.log(preis);
+                preis = preis.replace(",", ".");
                 preis = preis.substring(0, preis.length - 1);
                 if (preis) {
-                    gesamtpreis = gesamtpreis + parseFloat(preis);
+                    gesamtpreis = Number((gesamtpreis + parseFloat(preis)).toFixed(2));
                     console.log("Gesamtpreis: " + gesamtpreis + "€");
                 }
             }
@@ -105,16 +115,24 @@ var Aufgabe06;
             divId = "bierDivNr" + i;
             if (document.getElementById(divId) != null) {
                 let divBier = document.getElementById(divId);
-                divBier?.setAttribute("style", "visibility: hidden");
+                if (divBier)
+                    divBier.hidden = true;
             }
         }
         for (let i = 0; i < Aufgabe06.articleTier.length; i++) {
             divId = "tierDivNr" + i;
             if (document.getElementById(divId) != null) {
                 let divTier = document.getElementById(divId);
-                divTier?.setAttribute("style", "visibility: visible");
+                if (divTier)
+                    divTier.hidden = false;
             }
         }
+        let headerElem = document.getElementById("plüsch");
+        if (headerElem)
+            headerElem.hidden = false;
+        let headerElem2 = document.getElementById("bier");
+        if (headerElem2)
+            headerElem2.hidden = true;
     }
     function handleClickMenuBier(_event) {
         let divId;
@@ -122,16 +140,24 @@ var Aufgabe06;
             divId = "tierDivNr" + i;
             if (document.getElementById(divId) != null) {
                 let divTier = document.getElementById(divId);
-                divTier?.setAttribute("style", "visibility: hidden");
+                if (divTier)
+                    divTier.hidden = true;
             }
         }
         for (let i = 0; i < Aufgabe06.articleBier.length; i++) {
             divId = "bierDivNr" + i;
             if (document.getElementById(divId) != null) {
                 let divBier = document.getElementById(divId);
-                divBier?.setAttribute("style", "visibility: visible");
+                if (divBier)
+                    divBier.hidden = false;
             }
         }
+        let headerElem = document.getElementById("plüsch");
+        if (headerElem)
+            headerElem.hidden = true;
+        let headerElem2 = document.getElementById("bier");
+        if (headerElem2)
+            headerElem2.hidden = false;
     }
     function handleClickMenuBoth(_event) {
         let divId;
@@ -139,16 +165,24 @@ var Aufgabe06;
             divId = "bierDivNr" + i;
             if (document.getElementById(divId) != null) {
                 let divBier = document.getElementById(divId);
-                divBier?.setAttribute("style", "visibility: visible");
+                if (divBier)
+                    divBier.hidden = false;
             }
         }
         for (let i = 0; i < Aufgabe06.articleTier.length; i++) {
             divId = "tierDivNr" + i;
             if (document.getElementById(divId) != null) {
                 let divTier = document.getElementById(divId);
-                divTier?.setAttribute("style", "visibility: visible");
+                if (divTier)
+                    divTier.hidden = false;
             }
         }
+        let headerElem = document.getElementById("plüsch");
+        if (headerElem)
+            headerElem.hidden = false;
+        let headerElem2 = document.getElementById("bier");
+        if (headerElem2)
+            headerElem2.hidden = false;
     }
 })(Aufgabe06 || (Aufgabe06 = {}));
 //# sourceMappingURL=scripts.js.map
