@@ -11,6 +11,7 @@ var Aufgabe06;
     hElemDiv.innerHTML = "Dosenbier:";
     divHeader.appendChild(hElemDiv);
     divElemAll.appendChild(divHeader);
+    // Divs für Biere anlegen
     for (let i = 0; i < Aufgabe06.articleBier.length; i++) {
         let divElem = document.createElement("div");
         divElem.setAttribute("class", "artikelBier");
@@ -18,7 +19,14 @@ var Aufgabe06;
         divElemAll.appendChild(divElem);
         let imgElem = document.createElement("img");
         imgElem.setAttribute("src", Aufgabe06.articleBier[i].imgsrc);
+        imgElem.setAttribute("alt", Aufgabe06.articleBier[i].label);
         divElem.appendChild(imgElem);
+        let h1Name = document.createElement("h1");
+        divElem.appendChild(h1Name);
+        h1Name.innerHTML = "Name:";
+        let pName = document.createElement("p");
+        divElem.appendChild(pName);
+        pName.innerHTML = Aufgabe06.articleBier[i].label;
         let h1Elem = document.createElement("h1");
         divElem.appendChild(h1Elem);
         h1Elem.innerHTML = "Beschreibung:";
@@ -41,6 +49,7 @@ var Aufgabe06;
         buttonElem2.addEventListener("click", handleClick);
         divElem.appendChild(buttonElem2);
     }
+    // Kategorie Header
     let divHeader2 = document.createElement("div");
     divHeader2.setAttribute("class", "kategorie");
     let hElemDiv2 = document.createElement("h1");
@@ -48,6 +57,7 @@ var Aufgabe06;
     hElemDiv2.innerHTML = "Plüschtiere:";
     divHeader2.appendChild(hElemDiv2);
     divElemAll.appendChild(divHeader2);
+    // Divs für Tiere anlegen
     for (let i = 0; i < Aufgabe06.articleTier.length; i++) {
         let divElem = document.createElement("div");
         divElem.setAttribute("class", "artikelTier");
@@ -55,7 +65,14 @@ var Aufgabe06;
         divElemAll.appendChild(divElem);
         let imgElem = document.createElement("img");
         imgElem.setAttribute("src", Aufgabe06.articleTier[i].imgsrc);
+        imgElem.setAttribute("alt", Aufgabe06.articleTier[i].label);
         divElem.appendChild(imgElem);
+        let h1Name = document.createElement("h1");
+        divElem.appendChild(h1Name);
+        h1Name.innerHTML = "Name:";
+        let pName = document.createElement("p");
+        divElem.appendChild(pName);
+        pName.innerHTML = Aufgabe06.articleTier[i].label;
         let h1Elem = document.createElement("h1");
         divElem.appendChild(h1Elem);
         h1Elem.innerHTML = "Beschreibung:";
@@ -79,6 +96,48 @@ var Aufgabe06;
         divElem.appendChild(buttonElem);
     }
     document.getElementById("main")?.appendChild(divElemAll);
+    // Suchbar listener anlegen
+    let searchBar = document.getElementById("searchBar");
+    searchBar.addEventListener("keyup", handleSearch);
+    function handleSearch(_event) {
+        let searchBar = _event.currentTarget;
+        let divId;
+        // Biere durchschauen
+        for (let i = 0; i < Aufgabe06.articleBier.length; i++) {
+            divId = "bierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divBier = document.getElementById(divId);
+                let childNodes = divBier.childNodes;
+                let title = childNodes[2].textContent;
+                if (title.toLowerCase().includes(searchBar.value.toLowerCase()))
+                    divBier.hidden = false;
+                else {
+                    let beschreibung = childNodes[4].textContent;
+                    if (beschreibung.toLowerCase().includes(searchBar.value.toLowerCase()))
+                        divBier.hidden = false;
+                    else
+                        divBier.hidden = true;
+                }
+            }
+        }
+        // Tiere durchschauen
+        for (let i = 0; i < Aufgabe06.articleBier.length; i++) {
+            divId = "tierDivNr" + i;
+            let divTier = document.getElementById(divId);
+            let childNodes = divTier.childNodes;
+            let title = childNodes[2].textContent;
+            if (title.toLowerCase().includes(searchBar.value.toLowerCase()))
+                divTier.hidden = false;
+            else {
+                let beschreibung = childNodes[4].textContent;
+                if (beschreibung.toLowerCase().includes(searchBar.value.toLowerCase()))
+                    divTier.hidden = false;
+                else
+                    divTier.hidden = true;
+            }
+        }
+    }
+    // Gesamtpreis ausgeben
     function handleClick(_event) {
         let current = _event.currentTarget;
         if (current.previousSibling) {
@@ -100,6 +159,7 @@ var Aufgabe06;
         if (anzahl)
             anzahl.innerHTML = Number(anzahl.innerHTML) + Number("1") + "";
     }
+    // Ankerlistener anlegen
     let anchorListenerBier = document.getElementById("bierAnker");
     if (anchorListenerBier)
         anchorListenerBier.addEventListener("click", handleClickMenuBier);
@@ -109,6 +169,7 @@ var Aufgabe06;
     let anchorListenerBoth = document.getElementById("bothAnker");
     if (anchorListenerBoth)
         anchorListenerBoth.addEventListener("click", handleClickMenuBoth);
+    // Nur Kategorie Tier
     function handleClickMenuTier(_event) {
         let divId;
         for (let i = 0; i < Aufgabe06.articleBier.length; i++) {
@@ -134,6 +195,7 @@ var Aufgabe06;
         if (headerElem2)
             headerElem2.hidden = true;
     }
+    // Nur Kategorie Bier
     function handleClickMenuBier(_event) {
         let divId;
         for (let i = 0; i < Aufgabe06.articleTier.length; i++) {
@@ -159,6 +221,7 @@ var Aufgabe06;
         if (headerElem2)
             headerElem2.hidden = false;
     }
+    // Beide anzeigen
     function handleClickMenuBoth(_event) {
         let divId;
         for (let i = 0; i < Aufgabe06.articleBier.length; i++) {

@@ -12,6 +12,7 @@ namespace Aufgabe06 {
     divHeader.appendChild(hElemDiv);
     divElemAll.appendChild(divHeader);
 
+    // Divs für Biere anlegen
     for (let i: number = 0; i < articleBier.length; i++) {
 
         let divElem: HTMLElement = document.createElement("div");
@@ -21,7 +22,16 @@ namespace Aufgabe06 {
 
         let imgElem: HTMLElement = document.createElement("img");
         imgElem.setAttribute("src", articleBier[i].imgsrc);
+        imgElem.setAttribute("alt", articleBier[i].label);
         divElem.appendChild(imgElem);
+
+        let h1Name: HTMLElement = document.createElement("h1");
+        divElem.appendChild(h1Name);
+        h1Name.innerHTML = "Name:";
+
+        let pName: HTMLElement = document.createElement("p");
+        divElem.appendChild(pName);
+        pName.innerHTML = articleBier[i].label;
 
         let h1Elem: HTMLElement = document.createElement("h1");
         divElem.appendChild(h1Elem);
@@ -50,6 +60,7 @@ namespace Aufgabe06 {
         divElem.appendChild(buttonElem2);
     }
 
+    // Kategorie Header
     let divHeader2: HTMLElement = document.createElement("div");
     divHeader2.setAttribute("class", "kategorie");
     let hElemDiv2: HTMLElement = document.createElement("h1");
@@ -58,6 +69,7 @@ namespace Aufgabe06 {
     divHeader2.appendChild(hElemDiv2);
     divElemAll.appendChild(divHeader2);
     
+    // Divs für Tiere anlegen
     for (let i: number = 0; i < articleTier.length; i++) {
 
         let divElem: HTMLElement = document.createElement("div");
@@ -67,7 +79,16 @@ namespace Aufgabe06 {
 
         let imgElem: HTMLElement = document.createElement("img");
         imgElem.setAttribute("src", articleTier[i].imgsrc);
+        imgElem.setAttribute("alt", articleTier[i].label);
         divElem.appendChild(imgElem);
+
+        let h1Name: HTMLElement = document.createElement("h1");
+        divElem.appendChild(h1Name);
+        h1Name.innerHTML = "Name:";
+
+        let pName: HTMLElement = document.createElement("p");
+        divElem.appendChild(pName);
+        pName.innerHTML = articleTier[i].label;
 
         let h1Elem: HTMLElement = document.createElement("h1");
         divElem.appendChild(h1Elem);
@@ -98,6 +119,51 @@ namespace Aufgabe06 {
 
     document.getElementById("main")?.appendChild(divElemAll);
 
+    // Suchbar listener anlegen
+    let searchBar: HTMLElement = <HTMLElement> document.getElementById("searchBar");
+    searchBar.addEventListener("keyup", handleSearch);
+
+    function handleSearch(_event: Event): void {
+        let searchBar: HTMLInputElement = <HTMLInputElement> _event.currentTarget;
+        let divId: string;
+        // Biere durchschauen
+        for (let i: number = 0; i < articleBier.length; i++) {
+            divId = "bierDivNr" + i;
+            if (document.getElementById(divId) != null) {
+                let divBier: HTMLElement = <HTMLElement> document.getElementById(divId);
+                let childNodes: NodeListOf<ChildNode> = divBier.childNodes;
+                let title: string = <string> childNodes[2].textContent;
+                if (title.toLowerCase().includes(searchBar.value.toLowerCase()))
+                    divBier.hidden = false;
+                else {
+                    let beschreibung: string = <string> childNodes[4].textContent;
+                    if (beschreibung.toLowerCase().includes(searchBar.value.toLowerCase()))
+                        divBier.hidden = false;
+                    else
+                        divBier.hidden = true;
+                }
+                    
+            }
+        }
+        // Tiere durchschauen
+        for (let i: number = 0; i < articleBier.length; i++) {
+            divId = "tierDivNr" + i;
+            let divTier: HTMLElement = <HTMLElement> document.getElementById(divId);
+            let childNodes: NodeListOf<ChildNode> = divTier.childNodes;
+            let title: string = <string> childNodes[2].textContent;
+            if (title.toLowerCase().includes(searchBar.value.toLowerCase()))
+                divTier.hidden = false;
+            else {
+                let beschreibung: string = <string> childNodes[4].textContent;
+                if (beschreibung.toLowerCase().includes(searchBar.value.toLowerCase()))
+                    divTier.hidden = false;
+                else
+                    divTier.hidden = true;
+            }
+        }
+    }
+
+    // Gesamtpreis ausgeben
     function handleClick(_event: Event): void {
         let current: HTMLElement = <HTMLElement>_event.currentTarget;
         
@@ -125,6 +191,7 @@ namespace Aufgabe06 {
                 
     }
 
+    // Ankerlistener anlegen
     let anchorListenerBier: HTMLElement | null = document.getElementById("bierAnker");
     if (anchorListenerBier)
         anchorListenerBier.addEventListener("click", handleClickMenuBier);
@@ -137,6 +204,7 @@ namespace Aufgabe06 {
     if (anchorListenerBoth)
         anchorListenerBoth.addEventListener("click", handleClickMenuBoth);
 
+    // Nur Kategorie Tier
     function handleClickMenuTier(_event: Event): void {
         let divId: string;
         for (let i: number = 0; i < articleBier.length; i++) {
@@ -167,6 +235,7 @@ namespace Aufgabe06 {
 
     }
 
+    // Nur Kategorie Bier
     function handleClickMenuBier(_event: Event): void {
         let divId: string;
         for (let i: number = 0; i < articleTier.length; i++) {
@@ -196,6 +265,7 @@ namespace Aufgabe06 {
             headerElem2.hidden = false;
     }
 
+    // Beide anzeigen
     function handleClickMenuBoth(_event: Event): void {
         let divId: string;
         for (let i: number = 0; i < articleBier.length; i++) {
