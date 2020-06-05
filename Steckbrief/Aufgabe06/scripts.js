@@ -35,6 +35,7 @@ var Aufgabe06;
     // Suchbar listener anlegen
     let searchBar = document.getElementById("searchBar");
     searchBar.addEventListener("keyup", handleSearch);
+    // Funktion für beide Kategorien
     function createDivs(_articles, _divId, _className) {
         for (let i = 0; i < _articles.length; i++) {
             let divElem = document.createElement("div");
@@ -76,56 +77,15 @@ var Aufgabe06;
     // Suche ausführen und Artikel ausblenden
     function handleSearch(_event) {
         let searchBar = _event.currentTarget;
-        let divId;
-        let counterBier = 0;
-        // Biere durchschauen
-        for (let i = 0; i < Aufgabe06.articleBier.length; i++) {
-            divId = "bierDivNr" + i;
-            if (document.getElementById(divId) != null) {
-                let divBier = document.getElementById(divId);
-                let childNodes = divBier.childNodes;
-                let title = childNodes[2].textContent;
-                if (title.toLowerCase().includes(searchBar.value.toLowerCase()))
-                    divBier.hidden = false;
-                else {
-                    let beschreibung = childNodes[4].textContent;
-                    if (beschreibung.toLowerCase().includes(searchBar.value.toLowerCase()))
-                        divBier.hidden = false;
-                    else {
-                        divBier.hidden = true;
-                        counterBier++;
-                    }
-                }
-            }
-        }
-        // falls keine Biere mehr da -> Kategorie ausblenden
+        // Biere ausblenden | falls keine Biere mehr da -> Kategorie ausblenden
         let headerElem = document.getElementById("bier");
-        if (counterBier == Aufgabe06.articleBier.length)
+        if (searchHideDivs(Aufgabe06.articleBier, "bierDivNr", searchBar) == Aufgabe06.articleBier.length)
             headerElem.hidden = true;
         else
             headerElem.hidden = false;
-        let counterTier = 0;
-        // Tiere durchschauen
-        for (let i = 0; i < Aufgabe06.articleBier.length; i++) {
-            divId = "tierDivNr" + i;
-            let divTier = document.getElementById(divId);
-            let childNodes = divTier.childNodes;
-            let title = childNodes[2].textContent;
-            if (title.toLowerCase().includes(searchBar.value.toLowerCase()))
-                divTier.hidden = false;
-            else {
-                let beschreibung = childNodes[4].textContent;
-                if (beschreibung.toLowerCase().includes(searchBar.value.toLowerCase()))
-                    divTier.hidden = false;
-                else {
-                    divTier.hidden = true;
-                    counterTier++;
-                }
-            }
-        }
-        // falls keine Tiere mehr da -> Kategorie ausblenden
+        // Tiere ausblenden | falls keine Tiere mehr da -> Kategorie ausblenden
         let headerElem2 = document.getElementById("plüsch");
-        if (counterTier == Aufgabe06.articleTier.length)
+        if (searchHideDivs(Aufgabe06.articleTier, "tierDivNr", searchBar) == Aufgabe06.articleTier.length)
             headerElem2.hidden = true;
         else
             headerElem2.hidden = false;
@@ -150,39 +110,53 @@ var Aufgabe06;
     }
     // Nur Kategorie Tier
     function handleClickMenuTier(_event) {
-        hideDivs(true, true);
-        hideDivs(false, false);
+        hideDivs(Aufgabe06.articleBier, true, "bierDivNr", "bier");
+        hideDivs(Aufgabe06.articleTier, false, "tierDivNr", "plüsch");
     }
     // Nur Kategorie Bier
     function handleClickMenuBier(_event) {
-        hideDivs(true, false);
-        hideDivs(false, true);
+        hideDivs(Aufgabe06.articleBier, false, "bierDivNr", "bier");
+        hideDivs(Aufgabe06.articleTier, true, "tierDivNr", "plüsch");
     }
     // Beide anzeigen
     function handleClickMenuBoth(_event) {
-        hideDivs(true, false);
-        hideDivs(false, false);
+        hideDivs(Aufgabe06.articleBier, false, "bierDivNr", "bier");
+        hideDivs(Aufgabe06.articleTier, false, "tierDivNr", "plüsch");
     }
-    function hideDivs(_bier, _hide) {
+    // Gewählte Artikel ausblenden
+    function hideDivs(_articles, _hide, _divId, _headerId) {
         let divId;
-        if (_bier) {
-            for (let i = 0; i < Aufgabe06.articleBier.length; i++) {
-                divId = "bierDivNr" + i;
-                let divBier = document.getElementById(divId);
-                divBier.hidden = _hide;
-            }
-            let headerElem2 = document.getElementById("bier");
-            headerElem2.hidden = _hide;
+        for (let i = 0; i < _articles.length; i++) {
+            divId = _divId + i;
+            let divArticle = document.getElementById(divId);
+            divArticle.hidden = _hide;
         }
-        else {
-            for (let i = 0; i < Aufgabe06.articleTier.length; i++) {
-                divId = "tierDivNr" + i;
-                let divTier = document.getElementById(divId);
-                divTier.hidden = _hide;
+        let headerElem2 = document.getElementById(_headerId);
+        headerElem2.hidden = _hide;
+    }
+    function searchHideDivs(_articles, _divId, _searchBar) {
+        let counter = 0;
+        let divId;
+        for (let i = 0; i < _articles.length; i++) {
+            divId = _divId + i;
+            if (document.getElementById(divId) != null) {
+                let divElem = document.getElementById(divId);
+                let childNodes = divElem.childNodes;
+                let title = childNodes[2].textContent;
+                if (title.toLowerCase().includes(_searchBar.value.toLowerCase()))
+                    divElem.hidden = false;
+                else {
+                    let beschreibung = childNodes[4].textContent;
+                    if (beschreibung.toLowerCase().includes(_searchBar.value.toLowerCase()))
+                        divElem.hidden = false;
+                    else {
+                        divElem.hidden = true;
+                        counter++;
+                    }
+                }
             }
-            let headerElem = document.getElementById("plüsch");
-            headerElem.hidden = _hide;
         }
+        return counter;
     }
 })(Aufgabe06 || (Aufgabe06 = {}));
 //# sourceMappingURL=scripts.js.map

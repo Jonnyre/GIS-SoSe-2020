@@ -211,6 +211,7 @@ main{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .kategorie{
@@ -263,13 +264,27 @@ main{
     }
 
     #Einkaufswagen{
-      top: 160px;
+      top: 130px;
       height: 40px;
       width: 40px;
     }
 
     #toggle{
-      top: 170px;
+      left: 15px;
+      top: 150px;
+    }
+
+    #divAnzahl{
+      visibility: hidden;
+      background-color:  	#3CB371;
+      color: white;
+      position: fixed;
+      right: 10px;
+      top: 135px;
+      height: 30px;
+      width: 30px;
+      border-radius: 10px;
+      text-align: center;
     }
 }
 
