@@ -12,53 +12,8 @@ namespace Aufgabe06 {
     divHeader.appendChild(hElemDiv);
     divElemAll.appendChild(divHeader);
 
-    // Divs für Biere anlegen
-    for (let i: number = 0; i < articleBier.length; i++) {
-
-        let divElem: HTMLElement = document.createElement("div");
-        divElem.setAttribute("class", "artikelBier");
-        divElem.id = "bierDivNr" + i; 
-        divElemAll.appendChild(divElem);
-
-        let imgElem: HTMLElement = document.createElement("img");
-        imgElem.setAttribute("src", articleBier[i].imgsrc);
-        imgElem.setAttribute("alt", articleBier[i].label);
-        divElem.appendChild(imgElem);
-
-        let h1Name: HTMLElement = document.createElement("h1");
-        divElem.appendChild(h1Name);
-        h1Name.innerHTML = "Name:";
-
-        let pName: HTMLElement = document.createElement("p");
-        divElem.appendChild(pName);
-        pName.innerHTML = articleBier[i].label;
-
-        let h1Elem: HTMLElement = document.createElement("h1");
-        divElem.appendChild(h1Elem);
-        h1Elem.innerHTML = "Beschreibung:";
-
-        let pElem: HTMLElement = document.createElement("p");
-        divElem.appendChild(pElem);
-        pElem.innerHTML = articleBier[i].description;
-
-        let h1Elem2: HTMLElement = document.createElement("h1");
-        divElem.appendChild(h1Elem2);
-        h1Elem2.innerHTML = "Preis:";
-
-        let pElem2: HTMLElement = document.createElement("p");
-        divElem.appendChild(pElem2);
-        pElem2.setAttribute("class", "preis");
-        pElem2.innerHTML = articleBier[i].price.toLocaleString("de-DE", {
-            style: "currency",
-            currency: "EUR",
-            maximumFractionDigits: 2    
-        });
-
-        let buttonElem2: HTMLElement = document.createElement("button");
-        buttonElem2.innerHTML = "In den Einkaufswagen";
-        buttonElem2.addEventListener("click", handleClick);
-        divElem.appendChild(buttonElem2);
-    }
+    // BierDivs anlegen
+    createDivs(articleBier, "bierDivNr", "artikelBier");
 
     // Kategorie Header
     let divHeader2: HTMLElement = document.createElement("div");
@@ -69,66 +24,81 @@ namespace Aufgabe06 {
     divHeader2.appendChild(hElemDiv2);
     divElemAll.appendChild(divHeader2);
     
-    // Divs für Tiere anlegen
-    for (let i: number = 0; i < articleTier.length; i++) {
-
-        let divElem: HTMLElement = document.createElement("div");
-        divElem.setAttribute("class", "artikelTier");
-        divElem.id = "tierDivNr" + i; 
-        divElemAll.appendChild(divElem);
-
-        let imgElem: HTMLElement = document.createElement("img");
-        imgElem.setAttribute("src", articleTier[i].imgsrc);
-        imgElem.setAttribute("alt", articleTier[i].label);
-        divElem.appendChild(imgElem);
-
-        let h1Name: HTMLElement = document.createElement("h1");
-        divElem.appendChild(h1Name);
-        h1Name.innerHTML = "Name:";
-
-        let pName: HTMLElement = document.createElement("p");
-        divElem.appendChild(pName);
-        pName.innerHTML = articleTier[i].label;
-
-        let h1Elem: HTMLElement = document.createElement("h1");
-        divElem.appendChild(h1Elem);
-        h1Elem.innerHTML = "Beschreibung:";
-
-        let pElem: HTMLElement = document.createElement("p");
-        divElem.appendChild(pElem);
-        pElem.innerHTML = articleTier[i].description;
-
-        let h1Elem2: HTMLElement = document.createElement("h1");
-        divElem.appendChild(h1Elem2);
-        h1Elem2.innerHTML = "Preis:";
-
-        let pElem2: HTMLElement = document.createElement("p");
-        divElem.appendChild(pElem2);
-        pElem2.setAttribute("class", "preis");
-        pElem2.innerHTML = articleTier[i].price.toLocaleString("de-DE", {
-            style: "currency",
-            currency: "EUR",
-            maximumFractionDigits: 2    
-        });
-
-        let buttonElem: HTMLElement = document.createElement("button");
-        buttonElem.innerHTML = "In den Einkaufswagen";
-        buttonElem.addEventListener("click", handleClick);
-        divElem.appendChild(buttonElem);
-    }
+    // TierDivs anlegen
+    createDivs(articleTier, "tierDivNr", "artikelTier");
 
     let main: HTMLElement =  <HTMLElement>document.getElementById("main");
     main.appendChild(divElemAll);
 
+    // Ankerlistener anlegen
+    let anchorListenerBier: HTMLElement = <HTMLElement> document.getElementById("bierAnker");
+    anchorListenerBier.addEventListener("click", handleClickMenuBier);
+    
+    let anchorListenerTier: HTMLElement = <HTMLElement> document.getElementById("plüschAnker");
+    anchorListenerTier.addEventListener("click", handleClickMenuTier);
+    
+    let anchorListenerBoth: HTMLElement = <HTMLElement> document.getElementById("bothAnker");
+    anchorListenerBoth.addEventListener("click", handleClickMenuBoth);
+        
     // Suchbar listener anlegen
     let searchBar: HTMLElement = <HTMLElement> document.getElementById("searchBar");
     searchBar.addEventListener("keyup", handleSearch);
+
+    function createDivs(_articles: Artikel[], _divId: string, _className: string): void {    
+        for (let i: number = 0; i < _articles.length; i++) {
+
+            let divElem: HTMLElement = document.createElement("div");
+            divElem.setAttribute("class", _className);
+            divElem.id = _divId + i; 
+    
+            let imgElem: HTMLElement = document.createElement("img");
+            imgElem.setAttribute("src", _articles[i].imgsrc);
+            imgElem.setAttribute("alt", _articles[i].label);
+            divElem.appendChild(imgElem);
+    
+            let h1Name: HTMLElement = document.createElement("h1");
+            divElem.appendChild(h1Name);
+            h1Name.innerHTML = "Name:";
+    
+            let pName: HTMLElement = document.createElement("p");
+            divElem.appendChild(pName);
+            pName.innerHTML = _articles[i].label;
+    
+            let h1Elem: HTMLElement = document.createElement("h1");
+            divElem.appendChild(h1Elem);
+            h1Elem.innerHTML = "Beschreibung:";
+    
+            let pElem: HTMLElement = document.createElement("p");
+            divElem.appendChild(pElem);
+            pElem.innerHTML = _articles[i].description;
+    
+            let h1Elem2: HTMLElement = document.createElement("h1");
+            divElem.appendChild(h1Elem2);
+            h1Elem2.innerHTML = "Preis:";
+    
+            let pElem2: HTMLElement = document.createElement("p");
+            divElem.appendChild(pElem2);
+            pElem2.setAttribute("class", "preis");
+            pElem2.innerHTML = _articles[i].price.toLocaleString("de-DE", {
+                style: "currency",
+                currency: "EUR"
+            });
+    
+            let buttonElem: HTMLElement = document.createElement("button");
+            buttonElem.innerHTML = "In den Einkaufswagen";
+            buttonElem.addEventListener("click", handleClick);
+            divElem.appendChild(buttonElem);
+
+            divElemAll.appendChild(divElem);
+        }
+    }
 
     // Suche ausführen und Artikel ausblenden
     function handleSearch(_event: Event): void {
         let searchBar: HTMLInputElement = <HTMLInputElement> _event.currentTarget;
         let divId: string;
         let counterBier: number = 0;
+
         // Biere durchschauen
         for (let i: number = 0; i < articleBier.length; i++) {
             divId = "bierDivNr" + i;
@@ -158,6 +128,7 @@ namespace Aufgabe06 {
             headerElem.hidden = false;
 
         let counterTier: number = 0;
+
         // Tiere durchschauen
         for (let i: number = 0; i < articleBier.length; i++) {
             divId = "tierDivNr" + i;
@@ -206,85 +177,43 @@ namespace Aufgabe06 {
         }  
     }
 
-    // Ankerlistener anlegen
-    let anchorListenerBier: HTMLElement = <HTMLElement> document.getElementById("bierAnker");
-    anchorListenerBier.addEventListener("click", handleClickMenuBier);
-
-    let anchorListenerTier: HTMLElement = <HTMLElement> document.getElementById("plüschAnker");
-    anchorListenerTier.addEventListener("click", handleClickMenuTier);
-
-    let anchorListenerBoth: HTMLElement = <HTMLElement> document.getElementById("bothAnker");
-    anchorListenerBoth.addEventListener("click", handleClickMenuBoth);
-
     // Nur Kategorie Tier
     function handleClickMenuTier(_event: Event): void {
-        let divId: string;
-        for (let i: number = 0; i < articleBier.length; i++) {
-            divId = "bierDivNr" + i;
-            let divBier: HTMLElement = <HTMLElement> document.getElementById(divId);
-            if (divBier)
-                divBier.hidden = true;             
-        }
-
-        for (let i: number = 0; i < articleTier.length; i++) {
-            divId = "tierDivNr" + i;
-            let divTier: HTMLElement = <HTMLElement> document.getElementById(divId);
-            if (divTier)
-                divTier.hidden = false;
-        }
-
-        let headerElem: HTMLElement = <HTMLElement> document.getElementById("plüsch");
-        headerElem.hidden = false;
-        
-        let headerElem2: HTMLElement = <HTMLElement> document.getElementById("bier");
-        headerElem2.hidden = true;
-
+        hideDivs(true, true);
+        hideDivs(false, false);
     }
 
     // Nur Kategorie Bier
     function handleClickMenuBier(_event: Event): void {
-        let divId: string;
-        for (let i: number = 0; i < articleTier.length; i++) {
-            divId = "tierDivNr" + i;
-            let divTier: HTMLElement = <HTMLElement> document.getElementById(divId);
-            if (divTier)
-                divTier.hidden = true;    
-        }
-
-        for (let i: number = 0; i < articleBier.length; i++) {
-            divId = "bierDivNr" + i;
-            let divBier: HTMLElement = <HTMLElement> document.getElementById(divId);
-            divBier.hidden = false;
-        }
-
-        let headerElem: HTMLElement = <HTMLElement> document.getElementById("plüsch");
-        headerElem.hidden = true;
-        
-        let headerElem2: HTMLElement = <HTMLElement> document.getElementById("bier");
-        headerElem2.hidden = false;
+        hideDivs(true, false);
+        hideDivs(false, true);
     }
 
     // Beide anzeigen
     function handleClickMenuBoth(_event: Event): void {
+        hideDivs(true, false);
+        hideDivs(false, false);
+    }
+
+    function hideDivs(_bier: boolean, _hide: boolean): void {
         let divId: string;
-        for (let i: number = 0; i < articleBier.length; i++) {
-            divId = "bierDivNr" + i;
-            let divBier: HTMLElement = <HTMLElement> document.getElementById(divId);
-            if (divBier)
-                divBier.hidden = false;    
-        }
-
-        for (let i: number = 0; i < articleTier.length; i++) {
-            divId = "tierDivNr" + i;
-            let divTier: HTMLElement = <HTMLElement> document.getElementById(divId);
-            if (divTier)
-                 divTier.hidden = false;  
-        }
-
-        let headerElem: HTMLElement = <HTMLElement> document.getElementById("plüsch");
-        headerElem.hidden = false;
-        
-        let headerElem2: HTMLElement = <HTMLElement> document.getElementById("bier");
-        headerElem2.hidden = false;
+        if (_bier) {
+            for (let i: number = 0; i < articleBier.length; i++) {
+                divId = "bierDivNr" + i;
+                let divBier: HTMLElement = <HTMLElement> document.getElementById(divId);
+                divBier.hidden = _hide;
+            }
+            let headerElem2: HTMLElement = <HTMLElement> document.getElementById("bier");
+            headerElem2.hidden = _hide;
+        }   
+        else {
+            for (let i: number = 0; i < articleTier.length; i++) {
+                divId = "tierDivNr" + i;
+                let divTier: HTMLElement = <HTMLElement> document.getElementById(divId);
+                divTier.hidden = _hide;
+            }
+            let headerElem: HTMLElement = <HTMLElement> document.getElementById("plüsch");
+            headerElem.hidden = _hide;
+        }   
     }
 }
