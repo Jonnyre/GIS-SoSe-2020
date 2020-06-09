@@ -214,6 +214,13 @@ main{
     justify-content: center;
 }
 
+#Biere, #Tiere{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .kategorie{
   width: 100%;
   color: black;
