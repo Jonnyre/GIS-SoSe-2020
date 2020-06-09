@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>Shopseite</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js" defer></script>
+    <script src="scriptdata.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="navibar">
+                <img src="Images/Logo.jpg" alt="Logo">
+                <h2>Plüschbiere</h2>
+                <h2>Onlineshop, in dem Träume war werden</h2>
+                <input type="text" id="searchBar" placeholder="Suchen...">
+                <div id="toggle">
+                    <input type="checkbox" />
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <ul id="menu">
+                        <li>
+                            <a href="#" id="bierAnker">Dosenbier</a>
+                        </li>
+                        <li>
+                            <a href="#" id="plüschAnker">Beleidigende Plüschtiere</a>
+                        </li>
+                        <li>
+                            <a href="#" id="bothAnker">Beide anzeigen</a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="diveinkauf">
+                    <a href="warenkorb.html">
+                        <img id="Einkaufswagen" src="Images/Einkaufswagen.png" alt="Einkaufswagen">
+                    </a>
+                    <div id="divAnzahl">
+                        <p id="Anzahl">0</p>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="alleartikel">
+            <div class="kategorie">
+                <h1 id="bier">Dosenbier:</h1>
+            </div>
+            <div id="Biere">
+            </div>
+
+            <div class="kategorie">
+                <h1 id="plüsch">Plüschtiere:</h1>
+            </div>
+            <div id="Tiere">
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

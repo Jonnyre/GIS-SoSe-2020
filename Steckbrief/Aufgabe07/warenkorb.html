@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>Shopseite</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+    <script src="warenkorb.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="navibar">
+                <img src="Images/Logo.jpg" alt="Logo">
+                <h2>Plüschbiere</h2>
+                <h2>Onlineshop, in dem Träume war werden</h2>
+                <div id="toggle">
+                    <input type="checkbox" />
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <ul id="menu">
+                        <li>
+                            <a href="#" id="bierAnker">Dosenbier</a>
+                        </li>
+                        <li>
+                            <a href="#" id="plüschAnker">Beleidigende Plüschtiere</a>
+                        </li>
+                        <li>
+                            <a href="#" id="bothAnker">Beide anzeigen</a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="diveinkauf">
+                    <a href="shopseite.html">
+                        <img id="Einkaufswagen" src="Images/Einkaufswagen.png" alt="Einkaufswagen">
+                    </a>
+                    <input id="deleteAll" type="button" value="Alle entfernen">
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="alleartikel">
+            <div id="Biere">
+            </div>
+
+            <div id="Tiere">
+            </div>
+        </div>
+        <div >
+            <h1 id="gesamtpreis">Gesamtpreis:</h1>
+        </div>
+    </main>
+</body>
+
+</html>
