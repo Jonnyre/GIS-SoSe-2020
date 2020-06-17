@@ -1,6 +1,6 @@
 import * as Http from "http";
 
-export namespace A08Server {
+export namespace Aufgabe08 {
   console.log("Starting server");
   let port: number = Number(process.env.PORT);
   if (!port)
@@ -22,7 +22,7 @@ export namespace A08Server {
     _response.setHeader("Access-Control-Allow-Origin", "*");
 
     _response.write(_request.url);
-
+    console.log(_request.url);
     _response.end();
   }
 }
