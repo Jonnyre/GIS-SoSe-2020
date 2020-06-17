@@ -7,6 +7,7 @@ var Aufgabe08;
     async function handleClick() {
         formData = new FormData(document.forms[0]);
         let serverURL = "https://gissosejonathan.herokuapp.com/";
+        // tslint:disable-next-line: no-any
         let query = new URLSearchParams(formData);
         serverURL += "?" + query.toString();
         let response = await fetch(serverURL);

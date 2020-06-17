@@ -4,13 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
     <title>Eine wahnsinnig effektive Seite</title>
 </head>
     <body>
         <form method="get" action="">
-            <input type="text" name="vName" placeholder="Vorname"><br>
-            <input type="text" name="nName" placeholder="Nachname"><br>
-            <button id="performAction">Senden</button>
+            <label>Vorname:</label>
+            <input class="Formular" type="text" name="vName"><br>
+            <label>Nachname:</label>
+            <input class="Formular" type="text" name="nName"><br>
+            <label>Email:</label>
+            <input class="Formular" type="email" name="eMail" placeholder="plsHelp@trash-mail.com"><br>
+            <label>Nachricht:</label>
+            <input class="Formular" id="Nachricht" type="text" name="Nachricht" placeholder="Geben sie hier eine Nachricht ein..."><br>
+            <button class="Formular" id="performAction" type="button">Senden</button>
         </form>
     </body>
 </html>
