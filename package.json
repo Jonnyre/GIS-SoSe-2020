@@ -1,0 +1,21 @@
+{
+  "name": "gis-sose-2020",
+  "version": "1.0.0",
+  "description": "herukoserver",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "start": "node Steckbrief/Aufgabe08/beispielserver.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jonnyre/GIS-SoSe-2020.git"
+  },
+  "author": "Jonathan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jonnyre/GIS-SoSe-2020/issues"
+  },
+  "homepage": "https://github.com/Jonnyre/GIS-SoSe-2020#readme"
+}
