@@ -4,9 +4,11 @@
   "description": "herukoserver",
   "main": "index.js",
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/node": "^14.0.13"
+  },
   "scripts": {
-    "start": "node Steckbrief/Aufgabe08/beispielserver.js"
+    "start": "node Steckbrief/Aufgabe09/server.js"
   },
   "repository": {
     "type": "git",
