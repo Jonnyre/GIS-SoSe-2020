@@ -26,7 +26,7 @@ var Aufgabe09;
         let query = new URLSearchParams(formData);
         serverURL += "?" + query.toString();
         let response = await fetch(serverURL);
-        let responseText = await response.text();
+        let responseText = await response.json();
         console.log(responseText);
     }
 })(Aufgabe09 || (Aufgabe09 = {}));
