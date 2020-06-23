@@ -1,7 +1,7 @@
 import * as Http from "http";
 import * as Url from "url";
 
-export namespace Aufgabe08 {
+export namespace Aufgabe09 {
   console.log("Starting server");
   let port: number = Number(process.env.PORT);
   if (!port)
@@ -23,15 +23,18 @@ export namespace Aufgabe08 {
 
     if (_request.url) {
       let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
-      let qdata = url.query;
-      if (qdata.form == "html") {
+      let path: string | null = url.pathname;
+      if (path == "//html") {
         for (let key in url.query) {
           _response.write(key + ": " + url.query[key] + "<br/>");
         }
       }
-      else if (qdata.form == "json") {
+      else if (path == "//json") {
         let jsonString: string = JSON.stringify(url.query);
         _response.write(jsonString);
+      }
+      else if (path == "//A8") {
+        _response.write(_request.url);
       }
     }
     _response.end();

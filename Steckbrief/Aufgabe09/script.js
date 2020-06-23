@@ -9,10 +9,10 @@ var Aufgabe09;
     async function handleClickHtml() {
         formData = new FormData(document.forms[0]);
         let serverURL = "https://gissosejonathan.herokuapp.com/";
+        serverURL += "/html";
         // tslint:disable-next-line: no-any
         let query = new URLSearchParams(formData);
         serverURL += "?" + query.toString();
-        serverURL += "&" + "form=html";
         let response = await fetch(serverURL);
         let responseText = await response.text();
         let serverResponse = document.getElementById("serverResponse");
@@ -21,10 +21,10 @@ var Aufgabe09;
     async function handleClickJson() {
         formData = new FormData(document.forms[0]);
         let serverURL = "https://gissosejonathan.herokuapp.com/";
+        serverURL += "/json";
         // tslint:disable-next-line: no-any
         let query = new URLSearchParams(formData);
         serverURL += "?" + query.toString();
-        serverURL += "&" + "form=json";
         let response = await fetch(serverURL);
         let responseText = await response.text();
         console.log(responseText);

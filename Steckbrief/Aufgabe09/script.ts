@@ -9,10 +9,10 @@ namespace Aufgabe09 {
     async function handleClickHtml(): Promise<void> {
         formData = new FormData(document.forms[0]);
         let serverURL: string = "https://gissosejonathan.herokuapp.com/";
+        serverURL += "/html";
         // tslint:disable-next-line: no-any
         let query: URLSearchParams = new URLSearchParams(<any>formData);
         serverURL += "?" + query.toString();
-        serverURL += "&" + "form=html";
 
         let response: Response = await fetch(serverURL);
         let responseText: string = await response.text();
@@ -23,10 +23,10 @@ namespace Aufgabe09 {
     async function handleClickJson(): Promise<void> {
         formData = new FormData(document.forms[0]);
         let serverURL: string = "https://gissosejonathan.herokuapp.com/";
+        serverURL += "/json";
         // tslint:disable-next-line: no-any
         let query: URLSearchParams = new URLSearchParams(<any>formData);
         serverURL += "?" + query.toString();
-        serverURL += "&" + "form=json";
 
         let response: Response = await fetch(serverURL);
         let responseText: string = await response.text();

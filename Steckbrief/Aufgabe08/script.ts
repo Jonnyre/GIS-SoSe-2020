@@ -6,6 +6,7 @@ namespace Aufgabe08 {
     async function handleClick(): Promise<void> {
         formData = new FormData(document.forms[0]);
         let serverURL: string = "https://gissosejonathan.herokuapp.com/";
+        serverURL += "/A8";
         // tslint:disable-next-line: no-any
         let query: URLSearchParams = new URLSearchParams(<any>formData);
         serverURL += "?" + query.toString();

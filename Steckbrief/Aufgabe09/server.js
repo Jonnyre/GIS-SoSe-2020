@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Aufgabe08 = void 0;
+exports.Aufgabe09 = void 0;
 const Http = require("http");
 const Url = require("url");
-var Aufgabe08;
-(function (Aufgabe08) {
+var Aufgabe09;
+(function (Aufgabe09) {
     console.log("Starting server");
     let port = Number(process.env.PORT);
     if (!port)
@@ -21,18 +21,21 @@ var Aufgabe08;
         _response.setHeader("content-type", "text/html; charset=utf-8");
         if (_request.url) {
             let url = Url.parse(_request.url, true);
-            let qdata = url.query;
-            if (qdata.form == "html") {
+            let path = url.pathname;
+            if (path == "//html") {
                 for (let key in url.query) {
                     _response.write(key + ": " + url.query[key] + "<br/>");
                 }
             }
-            else if (qdata.form == "json") {
+            else if (path == "//json") {
                 let jsonString = JSON.stringify(url.query);
                 _response.write(jsonString);
+            }
+            else if (path == "//A8") {
+                _response.write(_request.url);
             }
         }
         _response.end();
     }
-})(Aufgabe08 = exports.Aufgabe08 || (exports.Aufgabe08 = {}));
+})(Aufgabe09 = exports.Aufgabe09 || (exports.Aufgabe09 = {}));
 //# sourceMappingURL=server.js.map
