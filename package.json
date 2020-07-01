@@ -3,12 +3,15 @@
   "version": "1.0.0",
   "description": "herukoserver",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "@types/mongodb": "^3.5.25",
+    "mongodb": "^3.5.9"
+  },
   "devDependencies": {
     "@types/node": "^14.0.13"
   },
   "scripts": {
-    "start": "node Steckbrief/Aufgabe09/server.js"
+    "start": "node Steckbrief/Aufgabe11/server.js remote"
   },
   "repository": {
     "type": "git",
