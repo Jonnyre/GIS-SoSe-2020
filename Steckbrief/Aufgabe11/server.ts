@@ -14,7 +14,7 @@ export namespace Aufgabe11 {
     databaseUrl = "mongodb+srv://Testuse:2CRniQTCg8CiqCKz@gis-sose-2020-jori-pijp3.mongodb.net/Aufgabe11?retryWrites=true&w=majority";
 
   connectToDatabase(databaseUrl);
-  
+
   let port: number = Number(process.env.PORT);
   if (!port)
     port = 8100;
@@ -42,7 +42,7 @@ export namespace Aufgabe11 {
         formularData.find({}).toArray(function(err: Mongo.MongoError, result: string[]): void {
         if (err)
           throw err;
-        _response.write(result);
+        _response.write(JSON.stringify(result));
         });
         }
         

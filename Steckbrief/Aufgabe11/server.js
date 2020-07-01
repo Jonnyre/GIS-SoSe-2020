@@ -36,7 +36,7 @@ var Aufgabe11;
                 formularData.find({}).toArray(function (err, result) {
                     if (err)
                         throw err;
-                    _response.write(result);
+                    _response.write(JSON.stringify(result));
                 });
             }
             else if (path == "/store")
