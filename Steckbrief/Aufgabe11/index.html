@@ -8,7 +8,7 @@
     <title>Eine wahnsinnig effektive Seite</title>
 </head>
     <body>
-        <form method="get" action="">
+        <form id="formid" method="get" action="">
             <label>Vorname:</label>
             <input class="Formular" type="text" name="Vorname"><br>
             <label>Nachname:</label>
@@ -20,6 +20,10 @@
             <button class="Formular" id="store" type="button">Schieb das mal rein!</button>
             <button class="Formular" id="retrieve" type="button">Datenbank bitte!</button>
         </form>
-        <p id="serverResponse"></p>
+        <div id="Response">
+            <h2>Server Response:</h2>
+            <p id="serverResponse"></p>
+        </div>
+        
     </body>
 </html>

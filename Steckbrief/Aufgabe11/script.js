@@ -10,9 +10,11 @@ var Aufgabe11;
         let serverURL = "https://gissosejonathan.herokuapp.com";
         serverURL += "/retrieve";
         let response = await fetch(serverURL);
+        console.log(response);
         let responseText = await response.json();
         let serverResponse = document.getElementById("serverResponse");
         serverResponse.innerHTML = responseText;
+        console.log(responseText);
     }
     async function handleClickStore() {
         formData = new FormData(document.forms[0]);
@@ -21,6 +23,8 @@ var Aufgabe11;
         // tslint:disable-next-line: no-any
         let query = new URLSearchParams(formData);
         serverURL += "?" + query.toString();
+        let formular = document.getElementById("formid");
+        formular.reset();
         await fetch(serverURL);
     }
 })(Aufgabe11 || (Aufgabe11 = {}));

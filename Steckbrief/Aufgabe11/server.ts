@@ -42,13 +42,20 @@ export namespace Aufgabe11 {
         formularData.find({}).toArray(function(err: Mongo.MongoError, result: string[]): void {
         if (err)
           throw err;
-        _response.write(JSON.stringify(result));
+        
+        let resultString: string = "";
+        for (let i: number = 0; i < result.length; i++) {
+          resultString += JSON.stringify(result[i]) + ",";
+        }
+
+        console.log(resultString);
+        _response.write(JSON.stringify(resultString));
+        _response.end();
         });
         }
         
       else if (path == "/store")
         formularData.insertOne(url.query);
     }
-    _response.end();
   }
 }

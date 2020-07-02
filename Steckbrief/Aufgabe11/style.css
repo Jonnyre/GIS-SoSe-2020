@@ -12,3 +12,9 @@
     position: relative;
     top: 20px;
 }
+
+#Response{
+    position: relative;
+    top: 40px;
+    border-style: groove;
+}

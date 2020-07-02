@@ -11,9 +11,12 @@ namespace Aufgabe11 {
         serverURL += "/retrieve";
 
         let response: Response = await fetch(serverURL);
+        console.log(response);
         let responseText: string = await response.json();
+        
         let serverResponse: HTMLElement = <HTMLElement> document.getElementById("serverResponse");
         serverResponse.innerHTML = responseText;
+        console.log(responseText);
     }
 
     async function handleClickStore(): Promise<void> {
@@ -24,6 +27,9 @@ namespace Aufgabe11 {
         // tslint:disable-next-line: no-any
         let query: URLSearchParams = new URLSearchParams(<any>formData);
         serverURL += "?" + query.toString();
+
+        let formular: HTMLFormElement =  <HTMLFormElement> document.getElementById("formid");
+        formular.reset();
 
         await fetch(serverURL);
     }
