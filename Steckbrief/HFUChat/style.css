@@ -1,0 +1,82 @@
+body{
+    background-color: lightblue;
+}
+
+#formular{
+    border-style: double;
+    position: absolute;
+    left: 40%;
+    top: 80%;
+    width: 400px;
+    align-content: center;
+}
+
+#logout{
+    position: absolute;
+    left: 20px;
+    top: 80%;
+    width: 400px;
+    height: 100px;
+    font-size: large;
+}
+
+.messagecontainer{
+    width: 900px;
+    height: 600px;
+    border-style: double;
+    overflow-y: scroll;
+    background-image: url("Bilder/background.png");
+}
+
+#messagecontainer1{
+    position: absolute;
+    left: 10px;
+}
+
+#messagecontainer2{
+    position: absolute;
+    right: 10px;
+}
+
+#nachricht1, #nachricht2{
+    width: 850px;
+    position: absolute;
+    top: 620px;
+}
+
+#nachricht1{
+    left: 10px;
+}
+
+#nachricht2{
+    right: 60px;
+}
+
+#absenden1, #absenden2{
+    position: absolute;
+    top: 618px;
+    width: 40px;
+    height: 20px;
+    border-style: groove;
+}
+
+#absenden1{
+    left: 868px;
+}
+
+#absenden2{
+    right: 10px;
+}
+
+.messageDiv p{
+    display: inline;
+    margin-left: 15px;
+}
+
+.messageDiv{
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+    height: 30px;
+}
