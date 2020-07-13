@@ -49,12 +49,12 @@ namespace HFUChat {
 
     async function handleRegister(): Promise<void> {
         let serverResponse: string = await setServerURL("/register");
-        console.log(serverResponse);
-        //alert(serverResponse + " wurde angelegt");
+        if (serverResponse)
+            alert("Der Benutzername: " + serverResponse + " ist bereits vergeben");
     }
 
     async function setServerURL(_serverParam: string): Promise<string> {
-        let serverURL: string = "http://localhost:8100";
+        let serverURL: string = "https://gissosejonathan.herokuapp.com";
         serverURL += _serverParam;
 
         formData = new FormData(document.forms[0]);
@@ -98,7 +98,7 @@ namespace HFUChat {
 
         if (nachrichtString != "") {
             nachricht.value = "";
-            let serverURL: string = "http://localhost:8100";
+            let serverURL: string = "https://gissosejonathan.herokuapp.com";
             serverURL += _pathname;
             serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username"); 
             await fetch(serverURL);
@@ -114,7 +114,7 @@ namespace HFUChat {
             chat = <HTMLDivElement> document.getElementById("messagecontainer2");
 
         chat.innerHTML = "";
-        let serverURL: string = "http://localhost:8100";
+        let serverURL: string = "https://gissosejonathan.herokuapp.com";
         serverURL += _serverParam;
 
         let response: Response = await fetch(serverURL);
@@ -143,6 +143,7 @@ namespace HFUChat {
             message.innerHTML = chatValue[i].message + " ";
             let time: HTMLElement = document.createElement("p");
             time.innerHTML = chatValue[i].time;
+            time.setAttribute("class", "timeDiv");
 
             messageDiv.appendChild(username);
             messageDiv.appendChild(message);
@@ -165,5 +166,15 @@ namespace HFUChat {
     function handleChat2Enter(_event: KeyboardEvent): void {
         if (_event.code == "Enter")
             handleAbsendenZwei();
+    }
+
+    setInterval(handleSetChatText, 5000);
+
+    async function handleSetChatText(): Promise<void> {
+        if (localStorage.getItem("username")) {
+            console.log(localStorage.getItem("username"));
+            setChatText("1", "/receiveChatOne");
+            setChatText("2", "/receiveChatTwo");
+        }
     }
 }

@@ -33,11 +33,11 @@ var HFUChat;
     }
     async function handleRegister() {
         let serverResponse = await setServerURL("/register");
-        console.log(serverResponse);
-        //alert(serverResponse + " wurde angelegt");
+        if (serverResponse)
+            alert("Der Benutzername: " + serverResponse + " ist bereits vergeben");
     }
     async function setServerURL(_serverParam) {
-        let serverURL = "http://localhost:8100";
+        let serverURL = "https://gissosejonathan.herokuapp.com";
         serverURL += _serverParam;
         formData = new FormData(document.forms[0]);
         // tslint:disable-next-line: no-any
@@ -71,7 +71,7 @@ var HFUChat;
         let nachrichtString = nachricht.value;
         if (nachrichtString != "") {
             nachricht.value = "";
-            let serverURL = "http://localhost:8100";
+            let serverURL = "https://gissosejonathan.herokuapp.com";
             serverURL += _pathname;
             serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username");
             await fetch(serverURL);
@@ -85,7 +85,7 @@ var HFUChat;
         else
             chat = document.getElementById("messagecontainer2");
         chat.innerHTML = "";
-        let serverURL = "http://localhost:8100";
+        let serverURL = "https://gissosejonathan.herokuapp.com";
         serverURL += _serverParam;
         let response = await fetch(serverURL);
         let responseString = await response.json();
@@ -109,6 +109,7 @@ var HFUChat;
             message.innerHTML = chatValue[i].message + " ";
             let time = document.createElement("p");
             time.innerHTML = chatValue[i].time;
+            time.setAttribute("class", "timeDiv");
             messageDiv.appendChild(username);
             messageDiv.appendChild(message);
             messageDiv.appendChild(time);
@@ -126,6 +127,14 @@ var HFUChat;
     function handleChat2Enter(_event) {
         if (_event.code == "Enter")
             handleAbsendenZwei();
+    }
+    setInterval(handleSetChatText, 5000);
+    async function handleSetChatText() {
+        if (localStorage.getItem("username")) {
+            console.log(localStorage.getItem("username"));
+            setChatText("1", "/receiveChatOne");
+            setChatText("2", "/receiveChatTwo");
+        }
     }
 })(HFUChat || (HFUChat = {}));
 //# sourceMappingURL=communication.js.map

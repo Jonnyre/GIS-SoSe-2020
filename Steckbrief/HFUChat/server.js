@@ -27,7 +27,7 @@ var HFUChat;
         mongoClient = new Mongo.MongoClient(_url, options);
         await mongoClient.connect();
     }
-    function handleRequest(_request, _response) {
+    async function handleRequest(_request, _response) {
         _response.setHeader("Access-Control-Allow-Origin", "*");
         _response.setHeader("content-type", "text/html; charset=utf-8");
         console.log("anfrage");
@@ -37,19 +37,28 @@ var HFUChat;
             if (path == "/register") {
                 console.log(url.query);
                 formularData = mongoClient.db("HFUChat").collection("LoginData");
-                formularData.insertOne(url.query);
-                console.log("inserted");
+                let loginResponse = await formularData.findOne({ username: url.query.username });
+                if (loginResponse) {
+                    _response.write(url.query.username);
+                    _response.end();
+                }
+                else {
+                    formularData.insertOne(url.query);
+                    _response.write("");
+                    _response.end();
+                }
             }
             else if (path == "/login") {
-                let usernameReq = url.query.username;
-                //usernameReq = usernameReq.toLowerCase();
-                let passwordReq = url.query.password;
-                //passwordReq = passwordReq.toLowerCase();
                 formularData = mongoClient.db("HFUChat").collection("LoginData");
-                console.log(url.query.username + " " + url.query.password);
-                if (formularData.findOne({ username: usernameReq, password: passwordReq }))
-                    _response.write(usernameReq);
-                _response.end();
+                let loginResponse = await formularData.findOne({ username: url.query.username, password: url.query.password });
+                if (loginResponse) {
+                    _response.write(url.query.username);
+                    _response.end();
+                }
+                else {
+                    _response.write("");
+                    _response.end();
+                }
             }
             else if (path == "/nachrichtEins") {
                 formularData = mongoClient.db("HFUChat").collection("NachrichtEins");
@@ -72,7 +81,6 @@ var HFUChat;
                             resultString += ",";
                     }
                     resultString += "]";
-                    console.log(resultString);
                     _response.write(JSON.stringify(resultString));
                     _response.end();
                 });
@@ -90,7 +98,6 @@ var HFUChat;
                             resultString += ",";
                     }
                     resultString += "]";
-                    console.log(resultString);
                     _response.write(JSON.stringify(resultString));
                     _response.end();
                 });
