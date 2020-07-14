@@ -79,8 +79,8 @@ namespace HFUChat {
     }
 
     async function setServerURL(_serverParam: string): Promise<string> {
-        // let serverURL: string = "https://gissosejonathan.herokuapp.com";
-        let serverURL: string = "http://localhost:8100";
+        let serverURL: string = "https://gissosejonathan.herokuapp.com";
+        //let serverURL: string = "http://localhost:8100";
         serverURL += _serverParam;
 
         formData = new FormData(document.forms[0]);
@@ -133,8 +133,8 @@ namespace HFUChat {
 
         if (nachrichtString != "") {
             nachricht.value = "";
-            // let serverURL: string = "https://gissosejonathan.herokuapp.com";
-            let serverURL: string = "http://localhost:8100";
+            let serverURL: string = "https://gissosejonathan.herokuapp.com";
+            //let serverURL: string = "http://localhost:8100";
             serverURL += _pathname;
             serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username"); 
             await fetch(serverURL);
@@ -150,8 +150,8 @@ namespace HFUChat {
             chat = <HTMLDivElement> document.getElementById("messagecontainer2");
 
         chat.innerHTML = "";
-        // let serverURL: string = "https://gissosejonathan.herokuapp.com";
-        let serverURL: string = "http://localhost:8100";
+        let serverURL: string = "https://gissosejonathan.herokuapp.com";
+        // let serverURL: string = "http://localhost:8100";
         serverURL += _serverParam;
 
         let response: Response = await fetch(serverURL);

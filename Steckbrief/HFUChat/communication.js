@@ -59,8 +59,8 @@ var HFUChat;
             alert("Es wurden nicht alle Daten, die zum registrieren benötigt werden, angegeben");
     }
     async function setServerURL(_serverParam) {
-        // let serverURL: string = "https://gissosejonathan.herokuapp.com";
-        let serverURL = "http://localhost:8100";
+        let serverURL = "https://gissosejonathan.herokuapp.com";
+        //let serverURL: string = "http://localhost:8100";
         serverURL += _serverParam;
         formData = new FormData(document.forms[0]);
         // tslint:disable-next-line: no-any
@@ -102,8 +102,8 @@ var HFUChat;
         let nachrichtString = nachricht.value;
         if (nachrichtString != "") {
             nachricht.value = "";
-            // let serverURL: string = "https://gissosejonathan.herokuapp.com";
-            let serverURL = "http://localhost:8100";
+            let serverURL = "https://gissosejonathan.herokuapp.com";
+            //let serverURL: string = "http://localhost:8100";
             serverURL += _pathname;
             serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username");
             await fetch(serverURL);
@@ -117,8 +117,8 @@ var HFUChat;
         else
             chat = document.getElementById("messagecontainer2");
         chat.innerHTML = "";
-        // let serverURL: string = "https://gissosejonathan.herokuapp.com";
-        let serverURL = "http://localhost:8100";
+        let serverURL = "https://gissosejonathan.herokuapp.com";
+        // let serverURL: string = "http://localhost:8100";
         serverURL += _serverParam;
         let response = await fetch(serverURL);
         let responseString = await response.json();
