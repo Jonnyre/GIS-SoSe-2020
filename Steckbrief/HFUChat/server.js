@@ -119,6 +119,7 @@ var HFUChat;
         let minutes = current.getMinutes();
         if (minutes < 10)
             minutes = "0" + current.getMinutes();
+        console.log(current);
         let currentTime = current.getHours() + ":" + minutes;
         let currentDate = current.toLocaleDateString("de-DE", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
         formularData.insertOne({ username: _username, message: _message, time: currentTime, date: currentDate });
