@@ -82,7 +82,7 @@ var HFUChat;
         logoutButton.style.display = "none";
     }
     function handleAbsendenEins() {
-        if (localStorage.getItem("nutzername")) {
+        if (localStorage.getItem("username")) {
             sendMessage("nachricht1", "/nachrichtEins");
             setChatText("1", "/receiveChatOne");
         }
@@ -90,7 +90,7 @@ var HFUChat;
             alert("Sie sind nicht eingeloggt");
     }
     function handleAbsendenZwei() {
-        if (localStorage.getItem("nutzername")) {
+        if (localStorage.getItem("username")) {
             sendMessage("nachricht2", "/nachrichtZwei");
             setChatText("2", "/receiveChatTwo");
         }
@@ -165,7 +165,6 @@ var HFUChat;
     setInterval(handleSetChatText, 5000);
     async function handleSetChatText() {
         if (localStorage.getItem("username")) {
-            console.log(localStorage.getItem("username"));
             setChatText("1", "/receiveChatOne");
             setChatText("2", "/receiveChatTwo");
         }

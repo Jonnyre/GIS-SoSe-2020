@@ -109,7 +109,7 @@ namespace HFUChat {
     }
 
     function handleAbsendenEins(): void {
-        if (localStorage.getItem("nutzername")) {
+        if (localStorage.getItem("username")) {
             sendMessage("nachricht1", "/nachrichtEins");
             setChatText("1", "/receiveChatOne");
         }
@@ -119,7 +119,7 @@ namespace HFUChat {
     }
 
     function handleAbsendenZwei(): void {
-        if (localStorage.getItem("nutzername")) {
+        if (localStorage.getItem("username")) {
             sendMessage("nachricht2", "/nachrichtZwei");
             setChatText("2", "/receiveChatTwo");
         }
@@ -210,7 +210,6 @@ namespace HFUChat {
 
     async function handleSetChatText(): Promise<void> {
         if (localStorage.getItem("username")) {
-            console.log(localStorage.getItem("username"));
             setChatText("1", "/receiveChatOne");
             setChatText("2", "/receiveChatTwo");
         }

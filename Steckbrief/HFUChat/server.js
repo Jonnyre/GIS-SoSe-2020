@@ -21,7 +21,6 @@ var HFUChat;
     let server = Http.createServer();
     server.addListener("request", handleRequest);
     server.listen(port);
-    console.log("gestartet");
     async function connectToDatabase(_url) {
         let options = { useNewUrlParser: true, useUnifiedTopology: true };
         mongoClient = new Mongo.MongoClient(_url, options);

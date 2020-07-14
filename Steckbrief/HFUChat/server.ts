@@ -22,7 +22,6 @@ export namespace HFUChat {
   let server: Http.Server = Http.createServer();
   server.addListener("request", handleRequest);
   server.listen(port);
-  console.log("gestartet");
 
   async function connectToDatabase(_url: string): Promise<void> {
     let options: Mongo.MongoClientOptions = {useNewUrlParser: true, useUnifiedTopology: true};
