@@ -30,22 +30,26 @@ var HFUChat;
     async function handleRequest(_request, _response) {
         _response.setHeader("Access-Control-Allow-Origin", "*");
         _response.setHeader("content-type", "text/html; charset=utf-8");
-        console.log("anfrage");
         if (_request.url) {
             let url = Url.parse(_request.url, true);
             let path = url.pathname;
             if (path == "/register") {
-                console.log(url.query);
-                formularData = mongoClient.db("HFUChat").collection("LoginData");
-                let loginResponse = await formularData.findOne({ username: url.query.username });
-                if (loginResponse) {
-                    _response.write(url.query.username);
+                if (url.query.username == "" || url.query.password == "") {
+                    _response.write("");
                     _response.end();
                 }
                 else {
-                    formularData.insertOne(url.query);
-                    _response.write("");
-                    _response.end();
+                    formularData = mongoClient.db("HFUChat").collection("LoginData");
+                    let loginResponse = await formularData.findOne({ username: url.query.username });
+                    if (loginResponse) {
+                        _response.write("vorhanden");
+                        _response.end();
+                    }
+                    else {
+                        formularData.insertOne(url.query);
+                        _response.write(url.query.username);
+                        _response.end();
+                    }
                 }
             }
             else if (path == "/login") {
@@ -109,7 +113,7 @@ var HFUChat;
         let minutes = current.getMinutes();
         if (minutes < 10)
             minutes = "0" + current.getMinutes();
-        let currentTime = current.getHours() + ":" + current.getMinutes();
+        let currentTime = current.getHours() + ":" + minutes;
         let currentDate = current.toLocaleDateString("de-DE", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
         formularData.insertOne({ username: _username, message: _message, time: currentTime, date: currentDate });
     }

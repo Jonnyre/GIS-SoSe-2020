@@ -14,49 +14,50 @@ body{
 #logout{
     position: absolute;
     left: 20px;
-    top: 80%;
+    bottom: 20px;
     width: 400px;
     height: 100px;
     font-size: large;
 }
 
 .messagecontainer{
+    position: absolute;
     width: 900px;
     height: 600px;
     border-style: double;
     overflow-y: scroll;
+    top: 70px;
     background-image: url("Bilder/background.png");
 }
 
 #messagecontainer1{
-    position: absolute;
     left: 10px;
 }
 
 #messagecontainer2{
-    position: absolute;
     right: 10px;
 }
 
 #nachricht1, #nachricht2{
-    width: 850px;
+    width: 810px;
     position: absolute;
-    top: 620px;
+    top: 677px;
+    height: 27px;
 }
 
 #nachricht1{
-    left: 10px;
+    left: 53px;
 }
 
 #nachricht2{
-    right: 60px;
+    right: 55px;
 }
 
-#absenden1, #absenden2{
+#absenden1, #absenden2, #emojiButton1, #emojiButton2{
     position: absolute;
-    top: 618px;
+    top: 675px;
     width: 40px;
-    height: 20px;
+    height: 30px;
     border-style: groove;
 }
 
@@ -82,7 +83,146 @@ body{
 }
 
 .timeDiv{
-    position: relative;
-    right: 5px;
     font-style: italic;
+}
+
+.title{
+    position: absolute;
+    top: 0px;
+    color: darkgreen;
+}
+
+#spam{
+    right: 400px;
+}
+
+#flirt{
+    left: 400px;
+}
+
+#emojis1, #emojis2{
+    position: absolute;
+    top: 715px;
+    display: none;
+}
+
+#emojiButton2{
+    right: 870px;
+}
+
+#emojis2{
+    right: 740px;
+}
+
+@media only screen and (max-width: 600px)
+{
+    .messagecontainer{
+        width: 90%;
+        height: 300px;
+        left: 10px;
+    }
+    .messagecontainer p{
+        font-size: small;
+    }
+    #nachricht1,#absenden1,#emojiButton1{
+        top: 375px;
+    }
+    #nachricht1{
+        width: 70%;
+    }
+    #absenden1{
+        left: 83%;
+    }
+    #spam, #flirt{
+        left: 30%;
+    }
+    #spam{
+        top: 420px;
+    }
+    #messagecontainer2{
+        top: 500px;
+    }
+    #nachricht2,#absenden2,#emojiButton2{
+        top: 805px;
+    }
+    #emojiButton2{
+        left: 10px;
+    }
+    #nachricht2{
+        width: 70%;
+        left: 55px;
+    }
+    #absenden2{
+        right: 20px;
+    }
+    #formular{
+        left: 10%;
+        top: 900px;
+        width: 80%;
+    }
+    #logout{
+        top: 880px;
+        width: 90%;
+    }
+    #emojis1{
+        top: 410px;
+    }
+    #emojis2{
+        top: 840px;
+        right: 50%;
+    }
+}
+@media only screen and (min-width: 600px) and (max-width:1024px)
+{
+    .messagecontainer{
+        width: 95%;
+        height: 300px;
+        left: 10px;
+    }
+    #nachricht1,#absenden1,#emojiButton1{
+        top: 375px;
+    }
+    #nachricht1{
+        width: 85%;
+    }
+    #absenden1{
+        left: 700px;
+    }
+    #spam, #flirt{
+        left: 40%;
+    }
+    #spam{
+        top: 420px;
+    }
+    #messagecontainer2{
+        top: 500px;
+    }
+    #nachricht2,#absenden2,#emojiButton2{
+        top: 805px;
+    }
+    #emojiButton2{
+        left: 10px;
+    }
+    #nachricht2{
+        width: 85%;
+        left: 55px;
+    }
+    #absenden2{
+        right: 25px;
+    }
+    #formular{
+        left: 200px;
+        top: 900px;
+        width: 300px;
+    }
+    #logout{
+        width: 700px;
+    }
+    #emojis1{
+        top: 410px;
+    }
+    #emojis2{
+        top: 840px;
+        right: 77%;
+    }
 }

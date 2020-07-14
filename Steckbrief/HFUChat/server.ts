@@ -35,23 +35,27 @@ export namespace HFUChat {
     _response.setHeader("Access-Control-Allow-Origin", "*");
     _response.setHeader("content-type", "text/html; charset=utf-8");
 
-    console.log("anfrage");
     if (_request.url) {
       let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
       let path: string | null = url.pathname;
 
       if (path == "/register") {
-        console.log(url.query);
-        formularData = mongoClient.db("HFUChat").collection("LoginData");
-        let loginResponse: Mongo.Cursor | null = await formularData.findOne({username: url.query.username});
-        if (loginResponse) {
-          _response.write(url.query.username);
+        if (url.query.username == "" || url.query.password == "") {
+          _response.write("");
           _response.end();
         }
         else {
-          formularData.insertOne(url.query);
-          _response.write("");
-          _response.end();
+          formularData = mongoClient.db("HFUChat").collection("LoginData");
+          let loginResponse: Mongo.Cursor | null = await formularData.findOne({username: url.query.username});
+          if (loginResponse) {
+            _response.write("vorhanden");
+            _response.end();
+          }
+          else {
+            formularData.insertOne(url.query);
+            _response.write(url.query.username);
+            _response.end();
+          }
         }
       }
 
@@ -124,8 +128,8 @@ export namespace HFUChat {
     let minutes: number | string = current.getMinutes();
     if (minutes < 10)
       minutes = "0" + current.getMinutes();
-      
-    let currentTime: string = current.getHours() + ":" + current.getMinutes();
+    
+    let currentTime: string = current.getHours() + ":" + minutes;
     let currentDate: string = current.toLocaleDateString("de-DE", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
     formularData.insertOne({username: _username, message: _message, time: currentTime, date: currentDate});
   }

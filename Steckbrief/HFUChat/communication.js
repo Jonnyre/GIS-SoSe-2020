@@ -16,6 +16,18 @@ var HFUChat;
     inputChat1.addEventListener("keyup", handleChat1Enter);
     let inputChat2 = document.getElementById("nachricht2");
     inputChat2.addEventListener("keyup", handleChat2Enter);
+    if (localStorage.getItem("username")) {
+        let formular = document.getElementById("formular");
+        formular.hidden = true;
+        let logoutButton = document.getElementById("logout");
+        logoutButton.style.display = "block";
+    }
+    else {
+        let formular = document.getElementById("formular");
+        formular.hidden = false;
+        let logoutButton = document.getElementById("logout");
+        logoutButton.style.display = "none";
+    }
     async function handleLogin() {
         let serverResponse = await setServerURL("/login");
         console.log(serverResponse);
@@ -33,11 +45,22 @@ var HFUChat;
     }
     async function handleRegister() {
         let serverResponse = await setServerURL("/register");
-        if (serverResponse)
-            alert("Der Benutzername: " + serverResponse + " ist bereits vergeben");
+        if (serverResponse) {
+            if (serverResponse == "vorhanden")
+                alert("Dieser Benutzername ist bereits vorhanden");
+            else {
+                alert("Der Nutzer: " + serverResponse + " wurde angelegt" + "\n"
+                    + "Bitte überprüfen Sie ihre Emails für die Validierung des Accounts");
+                let formular = document.getElementById("form");
+                formular.reset();
+            }
+        }
+        else
+            alert("Es wurden nicht alle Daten, die zum registrieren benötigt werden, angegeben");
     }
     async function setServerURL(_serverParam) {
-        let serverURL = "https://gissosejonathan.herokuapp.com";
+        // let serverURL: string = "https://gissosejonathan.herokuapp.com";
+        let serverURL = "http://localhost:8100";
         serverURL += _serverParam;
         formData = new FormData(document.forms[0]);
         // tslint:disable-next-line: no-any
@@ -59,19 +82,28 @@ var HFUChat;
         logoutButton.style.display = "none";
     }
     function handleAbsendenEins() {
-        sendMessage("nachricht1", "/nachrichtEins");
-        setChatText("1", "/receiveChatOne");
+        if (localStorage.getItem("nutzername")) {
+            sendMessage("nachricht1", "/nachrichtEins");
+            setChatText("1", "/receiveChatOne");
+        }
+        else
+            alert("Sie sind nicht eingeloggt");
     }
     function handleAbsendenZwei() {
-        sendMessage("nachricht2", "/nachrichtZwei");
-        setChatText("2", "/receiveChatTwo");
+        if (localStorage.getItem("nutzername")) {
+            sendMessage("nachricht2", "/nachrichtZwei");
+            setChatText("2", "/receiveChatTwo");
+        }
+        else
+            alert("Sie sind nicht eingeloggt");
     }
     async function sendMessage(_elementId, _pathname) {
         let nachricht = document.getElementById(_elementId);
         let nachrichtString = nachricht.value;
         if (nachrichtString != "") {
             nachricht.value = "";
-            let serverURL = "https://gissosejonathan.herokuapp.com";
+            // let serverURL: string = "https://gissosejonathan.herokuapp.com";
+            let serverURL = "http://localhost:8100";
             serverURL += _pathname;
             serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username");
             await fetch(serverURL);
@@ -85,7 +117,8 @@ var HFUChat;
         else
             chat = document.getElementById("messagecontainer2");
         chat.innerHTML = "";
-        let serverURL = "https://gissosejonathan.herokuapp.com";
+        // let serverURL: string = "https://gissosejonathan.herokuapp.com";
+        let serverURL = "http://localhost:8100";
         serverURL += _serverParam;
         let response = await fetch(serverURL);
         let responseString = await response.json();
@@ -119,6 +152,7 @@ var HFUChat;
                 messageDiv.setAttribute("style", "background-color:white");
             chat.appendChild(messageDiv);
         }
+        chat.scrollTop = chat.scrollHeight;
     }
     function handleChat1Enter(_event) {
         if (_event.code == "Enter")
