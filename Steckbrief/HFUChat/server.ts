@@ -38,27 +38,29 @@ export namespace HFUChat {
       let url: Url.UrlWithParsedQuery = Url.parse(_request.url, true);
       let path: string | null = url.pathname;
 
-      if (path == "/register") {
-        if (url.query.username == "" || url.query.password == "") {
-          _response.write("");
-          _response.end();
-        }
-        else {
-          formularData = mongoClient.db("HFUChat").collection("LoginData");
-          let loginResponse: Mongo.Cursor | null = await formularData.findOne({username: url.query.username});
-          if (loginResponse) {
-            _response.write("vorhanden");
+      let resultString: string = "";
+      switch (path) {
+        case "/register":
+          if (url.query.username == "" || url.query.password == "") {
+            _response.write("");
             _response.end();
           }
           else {
-            formularData.insertOne(url.query);
-            _response.write(url.query.username);
-            _response.end();
+            formularData = mongoClient.db("HFUChat").collection("LoginData");
+            let loginResponse: Mongo.Cursor | null = await formularData.findOne({username: url.query.username});
+            if (loginResponse) {
+              _response.write("vorhanden");
+              _response.end();
+            }
+            else {
+              formularData.insertOne(url.query);
+              _response.write(url.query.username);
+              _response.end();
+            }
           }
-        }
-      }
+          break;
 
-      else if (path == "/login") {
+        case "/login":
           formularData = mongoClient.db("HFUChat").collection("LoginData");
           let loginResponse: Mongo.Cursor | null = await formularData.findOne({username: url.query.username, password: url.query.password});
           if (loginResponse) {
@@ -68,55 +70,60 @@ export namespace HFUChat {
           else {
             _response.write("");
             _response.end();
-          } 
-      }
-      
-      else if (path == "/nachrichtEins") {
-        formularData = mongoClient.db("HFUChat").collection("NachrichtEins");
-        insertMessage(<string>url.query.username, <string>url.query.message);
-      }
-
-      else if (path == "/nachrichtZwei") {
-        formularData = mongoClient.db("HFUChat").collection("NachrichtZwei");
-        insertMessage(<string>url.query.username, <string>url.query.message);
-      }
-
-      else if (path == "/receiveChatOne") {
-        formularData = mongoClient.db("HFUChat").collection("NachrichtEins");
-        let resultString: string = "";
-        formularData.find({}).toArray(function(err: Mongo.MongoError, result: string[]): void {
-          if (err)
-            throw err;
-          
-          resultString += "[";
-          for (let i: number = 0; i < result.length; i++) {
-            resultString += JSON.stringify(result[i]);
-            if (i < result.length - 1)
-              resultString += ",";
           }
-          resultString += "]";
-          _response.write(JSON.stringify(resultString));
-          _response.end();
-        });
-      }
+          break;
 
-      else if (path == "/receiveChatTwo") {
-        formularData = mongoClient.db("HFUChat").collection("NachrichtZwei");
-        let resultString: string = "";
-        formularData.find({}).toArray(function(err: Mongo.MongoError, result: string[]): void {
-          if (err)
-            throw err;
-          
-          resultString += "[";
-          for (let i: number = 0; i < result.length; i++) {
-            resultString += JSON.stringify(result[i]);
-            if (i < result.length - 1)
-              resultString += ",";
-          }
-          resultString += "]";
-          _response.write(JSON.stringify(resultString));
+        case "/nachrichtEins":
+          formularData = mongoClient.db("HFUChat").collection("NachrichtEins");
+          insertMessage(<string>url.query.username, <string>url.query.message);
           _response.end();
-        });
+          break;
+
+        case "/nachrichtZwei":
+          formularData = mongoClient.db("HFUChat").collection("NachrichtZwei");
+          insertMessage(<string>url.query.username, <string>url.query.message);
+          _response.end();
+          break;
+
+        case "/receiveChatOne":
+          formularData = mongoClient.db("HFUChat").collection("NachrichtEins");
+          resultString = "";
+          formularData.find({}).toArray(function(err: Mongo.MongoError, result: string[]): void {
+            if (err)
+              throw err;
+            
+            resultString += "[";
+            for (let i: number = 0; i < result.length; i++) {
+              resultString += JSON.stringify(result[i]);
+              if (i < result.length - 1)
+                resultString += ",";
+            }
+            resultString += "]";
+            _response.write(JSON.stringify(resultString));
+            _response.end();
+          });
+          break;
+          
+        case "/receiveChatTwo":
+            formularData = mongoClient.db("HFUChat").collection("NachrichtZwei");
+            resultString = "";
+            formularData.find({}).toArray(function(err: Mongo.MongoError, result: string[]): void {
+              if (err)
+                throw err;
+              
+              resultString += "[";
+              for (let i: number = 0; i < result.length; i++) {
+                resultString += JSON.stringify(result[i]);
+                if (i < result.length - 1)
+                  resultString += ",";
+              }
+              resultString += "]";
+              _response.write(JSON.stringify(resultString));
+              _response.end();
+            });
+            break;
+          default:
+            _response.end();
       }
     }
   }

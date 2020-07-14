@@ -6,8 +6,9 @@ namespace HFUChat {
         time: string;
         date: string;
     }
-
     let formData: FormData;
+
+    //#region Listener anlegen
     let loginButton: HTMLButtonElement = <HTMLButtonElement> document.getElementById("login");
     loginButton.addEventListener("click", handleLogin);
 
@@ -28,20 +29,19 @@ namespace HFUChat {
     
     let inputChat2: HTMLInputElement = <HTMLInputElement> document.getElementById("nachricht2");
     inputChat2.addEventListener("keyup", handleChat2Enter);
+    //#endregion
+
+    if (localStorage.getItem("username"))
+        hideShowLog(true, "block");
+    else 
+        hideShowLog(false, "none");
+
+    function hideShowLog(_showFormular: boolean, _logoutStyle: string): void {
+        let formular: HTMLDivElement =  <HTMLDivElement> document.getElementById("formular");
+        formular.hidden = _showFormular;
     
-    if (localStorage.getItem("username")) {
-        let formular: HTMLDivElement =  <HTMLDivElement> document.getElementById("formular");
-        formular.hidden = true;
-
         let logoutButton: HTMLButtonElement = <HTMLButtonElement> document.getElementById("logout");
-        logoutButton.style.display = "block";
-    }
-    else {
-        let formular: HTMLDivElement =  <HTMLDivElement> document.getElementById("formular");
-        formular.hidden = false;
-
-        let logoutButton: HTMLButtonElement = <HTMLButtonElement> document.getElementById("logout");
-        logoutButton.style.display = "none";
+        logoutButton.style.display = _logoutStyle;
     }
 
     async function handleLogin(): Promise<void> {
@@ -49,14 +49,11 @@ namespace HFUChat {
         console.log(serverResponse);
         if (serverResponse) {
             localStorage.setItem("username", serverResponse);
-            let formular: HTMLDivElement =  <HTMLDivElement> document.getElementById("formular");
-            formular.hidden = true;
+
+            hideShowLog(true, "block");
 
             setChatText("1", "/receiveChatOne");
             setChatText("2", "/receiveChatTwo");
-
-            let logoutButton: HTMLButtonElement = <HTMLButtonElement> document.getElementById("logout");
-            logoutButton.setAttribute("style", "visibility: visible");
         }
         else
             alert("Die eingegeben Daten aus Nutzername und Passwort ist nicht korrekt");   
@@ -80,7 +77,7 @@ namespace HFUChat {
 
     async function setServerURL(_serverParam: string): Promise<string> {
         let serverURL: string = "https://gissosejonathan.herokuapp.com";
-        //let serverURL: string = "http://localhost:8100";
+        // let serverURL: string = "http://localhost:8100";
         serverURL += _serverParam;
 
         formData = new FormData(document.forms[0]);
@@ -95,17 +92,13 @@ namespace HFUChat {
 
     function handleLogout(): void {
         localStorage.setItem("username", "");
-        let formular: HTMLDivElement =  <HTMLDivElement> document.getElementById("formular");
-        formular.hidden = false;
+        hideShowLog(false, "none");
 
         let chat1: HTMLDivElement = <HTMLDivElement> document.getElementById("messagecontainer1");
         let chat2: HTMLDivElement = <HTMLDivElement> document.getElementById("messagecontainer2");
 
         chat1.innerText = "";
         chat2.innerText = "";
-
-        let logoutButton: HTMLButtonElement = <HTMLButtonElement> document.getElementById("logout");
-        logoutButton.style.display = "none";
     }
 
     function handleAbsendenEins(): void {
@@ -115,7 +108,6 @@ namespace HFUChat {
         }
         else 
             alert("Sie sind nicht eingeloggt");
-        
     }
 
     function handleAbsendenZwei(): void {
@@ -134,7 +126,7 @@ namespace HFUChat {
         if (nachrichtString != "") {
             nachricht.value = "";
             let serverURL: string = "https://gissosejonathan.herokuapp.com";
-            //let serverURL: string = "http://localhost:8100";
+            // let serverURL: string = "http://localhost:8100";
             serverURL += _pathname;
             serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username"); 
             await fetch(serverURL);
