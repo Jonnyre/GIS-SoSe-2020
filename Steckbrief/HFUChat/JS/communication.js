@@ -3,12 +3,6 @@ var HFUChat;
 (function (HFUChat) {
     let formData;
     //#region Listener anlegen
-    let loginButton = document.getElementById("login");
-    loginButton.addEventListener("click", handleLogin);
-    let registerButton = document.getElementById("register");
-    registerButton.addEventListener("click", handleRegister);
-    let logoutButton = document.getElementById("logout");
-    logoutButton.addEventListener("click", handleLogout);
     let absendenEins = document.getElementById("absenden1");
     absendenEins.addEventListener("click", handleAbsendenEins);
     let absendenZwei = document.getElementById("absenden2");
@@ -18,46 +12,8 @@ var HFUChat;
     let inputChat2 = document.getElementById("nachricht2");
     inputChat2.addEventListener("keyup", handleChat2Enter);
     //#endregion
-    if (localStorage.getItem("username"))
-        hideShowLog(true, "block");
-    else
-        hideShowLog(false, "none");
-    function hideShowLog(_showFormular, _logoutStyle) {
-        let formular = document.getElementById("formular");
-        formular.hidden = _showFormular;
-        let logoutButton = document.getElementById("logout");
-        logoutButton.style.display = _logoutStyle;
-    }
-    async function handleLogin() {
-        let serverResponse = await setServerURL("/login");
-        console.log(serverResponse);
-        if (serverResponse) {
-            localStorage.setItem("username", serverResponse);
-            hideShowLog(true, "block");
-            setChatText("1", "/receiveChatOne");
-            setChatText("2", "/receiveChatTwo");
-        }
-        else
-            alert("Die eingegeben Daten aus Nutzername und Passwort ist nicht korrekt");
-    }
-    async function handleRegister() {
-        let serverResponse = await setServerURL("/register");
-        if (serverResponse) {
-            if (serverResponse == "vorhanden")
-                alert("Dieser Benutzername ist bereits vorhanden");
-            else {
-                alert("Der Nutzer: " + serverResponse + " wurde angelegt" + "\n"
-                    + "Bitte überprüfen Sie ihre Emails für die Validierung des Accounts");
-                let formular = document.getElementById("form");
-                formular.reset();
-            }
-        }
-        else
-            alert("Es wurden nicht alle Daten, die zum registrieren benötigt werden, angegeben");
-    }
     async function setServerURL(_serverParam) {
-        let serverURL = "https://gissosejonathan.herokuapp.com";
-        // let serverURL: string = "http://localhost:8100";
+        let serverURL = getServerUrl();
         serverURL += _serverParam;
         formData = new FormData(document.forms[0]);
         // tslint:disable-next-line: no-any
@@ -67,14 +23,7 @@ var HFUChat;
         let responseString = await response.text();
         return responseString;
     }
-    function handleLogout() {
-        localStorage.setItem("username", "");
-        hideShowLog(false, "none");
-        let chat1 = document.getElementById("messagecontainer1");
-        let chat2 = document.getElementById("messagecontainer2");
-        chat1.innerText = "";
-        chat2.innerText = "";
-    }
+    HFUChat.setServerURL = setServerURL;
     function handleAbsendenEins() {
         if (localStorage.getItem("username")) {
             sendMessage("nachricht1", "/nachrichtEins");
@@ -96,10 +45,10 @@ var HFUChat;
         let nachrichtString = nachricht.value;
         if (nachrichtString != "") {
             nachricht.value = "";
-            let serverURL = "https://gissosejonathan.herokuapp.com";
-            // let serverURL: string = "http://localhost:8100";
+            let serverURL = getServerUrl();
             serverURL += _pathname;
-            serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username");
+            let currentDate = new Date();
+            serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username") + "&date=" + currentDate;
             await fetch(serverURL);
             return;
         }
@@ -111,8 +60,7 @@ var HFUChat;
         else
             chat = document.getElementById("messagecontainer2");
         chat.innerHTML = "";
-        let serverURL = "https://gissosejonathan.herokuapp.com";
-        // let serverURL: string = "http://localhost:8100";
+        let serverURL = getServerUrl();
         serverURL += _serverParam;
         let response = await fetch(serverURL);
         let responseString = await response.json();
@@ -148,6 +96,7 @@ var HFUChat;
         }
         chat.scrollTop = chat.scrollHeight;
     }
+    HFUChat.setChatText = setChatText;
     function handleChat1Enter(_event) {
         if (_event.code == "Enter")
             handleAbsendenEins();
@@ -156,12 +105,16 @@ var HFUChat;
         if (_event.code == "Enter")
             handleAbsendenZwei();
     }
-    setInterval(handleSetChatText, 5000);
+    setInterval(handleSetChatText, 10000);
     async function handleSetChatText() {
         if (localStorage.getItem("username")) {
             setChatText("1", "/receiveChatOne");
             setChatText("2", "/receiveChatTwo");
         }
+    }
+    function getServerUrl() {
+        return "https://gissosejonathan.herokuapp.com";
+        //return "http://localhost:8100";
     }
 })(HFUChat || (HFUChat = {}));
 //# sourceMappingURL=communication.js.map

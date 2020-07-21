@@ -9,15 +9,6 @@ namespace HFUChat {
     let formData: FormData;
 
     //#region Listener anlegen
-    let loginButton: HTMLButtonElement = <HTMLButtonElement> document.getElementById("login");
-    loginButton.addEventListener("click", handleLogin);
-
-    let registerButton: HTMLButtonElement = <HTMLButtonElement> document.getElementById("register");
-    registerButton.addEventListener("click", handleRegister);
-
-    let logoutButton: HTMLButtonElement = <HTMLButtonElement> document.getElementById("logout");
-    logoutButton.addEventListener("click", handleLogout);
-
     let absendenEins: HTMLButtonElement = <HTMLButtonElement> document.getElementById("absenden1");
     absendenEins.addEventListener("click", handleAbsendenEins);
 
@@ -31,53 +22,8 @@ namespace HFUChat {
     inputChat2.addEventListener("keyup", handleChat2Enter);
     //#endregion
 
-    if (localStorage.getItem("username"))
-        hideShowLog(true, "block");
-    else 
-        hideShowLog(false, "none");
-
-    function hideShowLog(_showFormular: boolean, _logoutStyle: string): void {
-        let formular: HTMLDivElement =  <HTMLDivElement> document.getElementById("formular");
-        formular.hidden = _showFormular;
-    
-        let logoutButton: HTMLButtonElement = <HTMLButtonElement> document.getElementById("logout");
-        logoutButton.style.display = _logoutStyle;
-    }
-
-    async function handleLogin(): Promise<void> {
-        let serverResponse: string = await setServerURL("/login");
-        console.log(serverResponse);
-        if (serverResponse) {
-            localStorage.setItem("username", serverResponse);
-
-            hideShowLog(true, "block");
-
-            setChatText("1", "/receiveChatOne");
-            setChatText("2", "/receiveChatTwo");
-        }
-        else
-            alert("Die eingegeben Daten aus Nutzername und Passwort ist nicht korrekt");   
-    }
-
-    async function handleRegister(): Promise<void> {
-        let serverResponse: string = await setServerURL("/register");
-        if (serverResponse) {
-            if (serverResponse == "vorhanden")
-                alert("Dieser Benutzername ist bereits vorhanden");
-            else {
-                alert("Der Nutzer: " + serverResponse + " wurde angelegt" + "\n"
-                + "Bitte überprüfen Sie ihre Emails für die Validierung des Accounts");
-                let formular: HTMLFormElement =  <HTMLFormElement> document.getElementById("form");
-                formular.reset();
-            }
-        }
-        else
-            alert("Es wurden nicht alle Daten, die zum registrieren benötigt werden, angegeben");
-    }
-
-    async function setServerURL(_serverParam: string): Promise<string> {
-        let serverURL: string = "https://gissosejonathan.herokuapp.com";
-        // let serverURL: string = "http://localhost:8100";
+    export async function setServerURL(_serverParam: string): Promise<string> {
+        let serverURL: string = getServerUrl();
         serverURL += _serverParam;
 
         formData = new FormData(document.forms[0]);
@@ -88,17 +34,6 @@ namespace HFUChat {
         let response: Response = await fetch(serverURL);
         let responseString: string = await response.text();
         return responseString;
-    }
-
-    function handleLogout(): void {
-        localStorage.setItem("username", "");
-        hideShowLog(false, "none");
-
-        let chat1: HTMLDivElement = <HTMLDivElement> document.getElementById("messagecontainer1");
-        let chat2: HTMLDivElement = <HTMLDivElement> document.getElementById("messagecontainer2");
-
-        chat1.innerText = "";
-        chat2.innerText = "";
     }
 
     function handleAbsendenEins(): void {
@@ -125,16 +60,16 @@ namespace HFUChat {
 
         if (nachrichtString != "") {
             nachricht.value = "";
-            let serverURL: string = "https://gissosejonathan.herokuapp.com";
-            // let serverURL: string = "http://localhost:8100";
+            let serverURL: string = getServerUrl();
             serverURL += _pathname;
-            serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username"); 
+            let currentDate: Date = new Date();
+            serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username") + "&date=" + currentDate; 
             await fetch(serverURL);
             return;
         }
     }
 
-    async function setChatText(_elementId: string, _serverParam: string): Promise<void> {
+    export async function setChatText(_elementId: string, _serverParam: string): Promise<void> {
         let chat: HTMLDivElement;
         if (_serverParam == "/receiveChatOne")
             chat = <HTMLDivElement> document.getElementById("messagecontainer1");
@@ -142,8 +77,7 @@ namespace HFUChat {
             chat = <HTMLDivElement> document.getElementById("messagecontainer2");
 
         chat.innerHTML = "";
-        let serverURL: string = "https://gissosejonathan.herokuapp.com";
-        // let serverURL: string = "http://localhost:8100";
+        let serverURL: string = getServerUrl();
         serverURL += _serverParam;
 
         let response: Response = await fetch(serverURL);
@@ -198,12 +132,17 @@ namespace HFUChat {
             handleAbsendenZwei();
     }
 
-    setInterval(handleSetChatText, 5000);
+    setInterval(handleSetChatText, 10000);
 
     async function handleSetChatText(): Promise<void> {
         if (localStorage.getItem("username")) {
             setChatText("1", "/receiveChatOne");
             setChatText("2", "/receiveChatTwo");
         }
+    }
+
+    function getServerUrl(): string {
+        return "https://gissosejonathan.herokuapp.com";
+        //return "http://localhost:8100";
     }
 }

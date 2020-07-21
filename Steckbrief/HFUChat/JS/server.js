@@ -67,12 +67,12 @@ var HFUChat;
                     break;
                 case "/nachrichtEins":
                     formularData = mongoClient.db("HFUChat").collection("NachrichtEins");
-                    insertMessage(url.query.username, url.query.message);
+                    insertMessage(url.query.username, url.query.message, url.query.date);
                     _response.end();
                     break;
                 case "/nachrichtZwei":
                     formularData = mongoClient.db("HFUChat").collection("NachrichtZwei");
-                    insertMessage(url.query.username, url.query.message);
+                    insertMessage(url.query.username, url.query.message, url.query.date);
                     _response.end();
                     break;
                 case "/receiveChatOne":
@@ -114,15 +114,16 @@ var HFUChat;
             }
         }
     }
-    function insertMessage(_username, _message) {
-        let current = new Date();
-        let minutes = current.getMinutes();
-        if (minutes < 10)
-            minutes = "0" + current.getMinutes();
-        console.log(current);
-        let currentTime = current.getHours() + ":" + minutes;
-        let currentDate = current.toLocaleDateString("de-DE", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
-        formularData.insertOne({ username: _username, message: _message, time: currentTime, date: currentDate });
+    function insertMessage(_username, _message, _date) {
+        // let current: Date = new Date();
+        // let minutes: number | string = current.getMinutes();
+        // if (minutes < 10)
+        //   minutes = "0" + current.getMinutes();
+        // console.log(current);
+        // let currentTime: string = current.getHours() + ":" + minutes;
+        // let currentDate: string = current.toLocaleDateString("de-DE", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
+        // formularData.insertOne({username: _username, message: _message, time: currentTime, date: currentDate});
+        formularData.insertOne({ username: _username, message: _message, date: _date });
     }
 })(HFUChat = exports.HFUChat || (exports.HFUChat = {}));
 //# sourceMappingURL=server.js.map

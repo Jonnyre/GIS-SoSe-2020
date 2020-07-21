@@ -75,13 +75,13 @@ export namespace HFUChat {
 
         case "/nachrichtEins":
           formularData = mongoClient.db("HFUChat").collection("NachrichtEins");
-          insertMessage(<string>url.query.username, <string>url.query.message);
+          insertMessage(<string>url.query.username, <string>url.query.message, <string>url.query.date);
           _response.end();
           break;
 
         case "/nachrichtZwei":
           formularData = mongoClient.db("HFUChat").collection("NachrichtZwei");
-          insertMessage(<string>url.query.username, <string>url.query.message);
+          insertMessage(<string>url.query.username, <string>url.query.message, <string>url.query.date);
           _response.end();
           break;
 
@@ -129,15 +129,17 @@ export namespace HFUChat {
   }
 
 
-  function insertMessage(_username: string, _message: string): void {
-    let current: Date = new Date();
-    let minutes: number | string = current.getMinutes();
-    if (minutes < 10)
-      minutes = "0" + current.getMinutes();
+  function insertMessage(_username: string, _message: string, _date: string): void {
+    // let current: Date = new Date();
+    // let minutes: number | string = current.getMinutes();
+    // if (minutes < 10)
+    //   minutes = "0" + current.getMinutes();
     
-    console.log(current);
-    let currentTime: string = current.getHours() + ":" + minutes;
-    let currentDate: string = current.toLocaleDateString("de-DE", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
-    formularData.insertOne({username: _username, message: _message, time: currentTime, date: currentDate});
+    // console.log(current);
+    // let currentTime: string = current.getHours() + ":" + minutes;
+    // let currentDate: string = current.toLocaleDateString("de-DE", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
+    // formularData.insertOne({username: _username, message: _message, time: currentTime, date: currentDate});
+    
+    formularData.insertOne({username: _username, message: _message, date: _date});
   }
 }

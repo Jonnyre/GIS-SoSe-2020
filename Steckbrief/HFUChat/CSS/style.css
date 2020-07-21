@@ -27,7 +27,7 @@ body{
     border-style: double;
     overflow-y: scroll;
     top: 70px;
-    background-image: url("Bilder/background.png");
+    background-image: url("../Bilder/background.png");
 }
 
 #messagecontainer1{
@@ -111,7 +111,7 @@ body{
 }
 
 #emojis2{
-    right: 740px;
+    right: 600px;
 }
 
 @media only screen and (max-width: 600px)
