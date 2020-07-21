@@ -11,7 +11,7 @@
     "@types/node": "^14.0.13"
   },
   "scripts": {
-    "start": "node Steckbrief/HFUChat/server.js remote"
+    "start": "node Steckbrief/HFUChat/JS/server.js remote"
   },
   "repository": {
     "type": "git",
