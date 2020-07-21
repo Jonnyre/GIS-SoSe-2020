@@ -3,7 +3,6 @@ namespace HFUChat {
     let emojiDiv1: HTMLDivElement = <HTMLDivElement>document.getElementById("emojis1");
     let emojiDiv2: HTMLDivElement = <HTMLDivElement>document.getElementById("emojis2");
     for (let i: number = 0; i < emojisList.length; i++) {
-        console.log(emojisList[i]);
         let emoji: HTMLAnchorElement = document.createElement("a");
         emoji.setAttribute("href", "#");
         emoji.setAttribute("class", "emoji1");

@@ -5,7 +5,6 @@ var HFUChat;
     let emojiDiv1 = document.getElementById("emojis1");
     let emojiDiv2 = document.getElementById("emojis2");
     for (let i = 0; i < emojisList.length; i++) {
-        console.log(emojisList[i]);
         let emoji = document.createElement("a");
         emoji.setAttribute("href", "#");
         emoji.setAttribute("class", "emoji1");

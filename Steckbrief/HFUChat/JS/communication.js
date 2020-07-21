@@ -48,7 +48,7 @@ var HFUChat;
             let serverURL = getServerUrl();
             serverURL += _pathname;
             let currentDate = new Date();
-            serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username") + "&date=" + currentDate;
+            serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username") + "&date=" + currentDate.toISOString();
             await fetch(serverURL);
             return;
         }
@@ -65,16 +65,19 @@ var HFUChat;
         let response = await fetch(serverURL);
         let responseString = await response.json();
         let chatValue = await JSON.parse(responseString);
-        let currentDate = chatValue[0].date;
+        let currentDate = new Date(chatValue[0].date);
+        let currentDateString = currentDate.toLocaleDateString("de-DE", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
         let dateDiv = document.createElement("div");
-        dateDiv.innerText = currentDate;
+        dateDiv.innerText = currentDateString;
         chat.appendChild(dateDiv);
         for (let i = 0; i < chatValue.length; i++) {
-            if (currentDate != chatValue[i].date) {
+            let currentDateNew = new Date(chatValue[i].date);
+            let currentDateStringNew = currentDateNew.toLocaleDateString("de-DE", { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+            if (currentDateString != currentDateStringNew) {
                 let nextDateDiv = document.createElement("div");
-                nextDateDiv.innerText = chatValue[i].date;
+                nextDateDiv.innerText = currentDateStringNew;
                 chat.appendChild(nextDateDiv);
-                currentDate = chatValue[i].date;
+                currentDateString = currentDateStringNew;
             }
             let messageDiv = document.createElement("div");
             messageDiv.setAttribute("class", "messageDiv");
@@ -83,7 +86,10 @@ var HFUChat;
             let message = document.createElement("p");
             message.innerHTML = chatValue[i].message + " ";
             let time = document.createElement("p");
-            time.innerHTML = chatValue[i].time;
+            let minutes = currentDateNew.getMinutes();
+            if (minutes < 10)
+                minutes = "0" + currentDateNew.getMinutes();
+            time.innerHTML = currentDateNew.getHours() + ":" + minutes;
             time.setAttribute("class", "timeDiv");
             messageDiv.appendChild(username);
             messageDiv.appendChild(message);

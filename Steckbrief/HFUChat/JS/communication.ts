@@ -3,9 +3,9 @@ namespace HFUChat {
         id: string;
         username: string;
         message: string;
-        time: string;
         date: string;
     }
+
     let formData: FormData;
 
     //#region Listener anlegen
@@ -63,7 +63,7 @@ namespace HFUChat {
             let serverURL: string = getServerUrl();
             serverURL += _pathname;
             let currentDate: Date = new Date();
-            serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username") + "&date=" + currentDate; 
+            serverURL += "?" + "message=" + nachrichtString + "&username=" + localStorage.getItem("username") + "&date=" + currentDate.toISOString(); 
             await fetch(serverURL);
             return;
         }
@@ -84,17 +84,20 @@ namespace HFUChat {
         let responseString: string = await response.json();
         let chatValue: ChatValues[] = await JSON.parse(responseString);
 
-        let currentDate: string = chatValue[0].date;
+        let currentDate: Date = new Date(chatValue[0].date);
+        let currentDateString: string = currentDate.toLocaleDateString("de-DE", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
         let dateDiv: HTMLDivElement = document.createElement("div");
-        dateDiv.innerText = currentDate;
+        dateDiv.innerText = currentDateString;
         chat.appendChild(dateDiv);
 
         for (let i: number = 0; i < chatValue.length; i++) {
-            if (currentDate != chatValue[i].date) {
+            let currentDateNew: Date = new Date(chatValue[i].date);
+            let currentDateStringNew: string = currentDateNew.toLocaleDateString("de-DE", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
+            if (currentDateString != currentDateStringNew) {
                 let nextDateDiv: HTMLDivElement = document.createElement("div");
-                nextDateDiv.innerText = chatValue[i].date;
+                nextDateDiv.innerText = currentDateStringNew;
                 chat.appendChild(nextDateDiv);
-                currentDate = chatValue[i].date;
+                currentDateString = currentDateStringNew;
             }
             let messageDiv: HTMLDivElement = document.createElement("div");
             messageDiv.setAttribute("class", "messageDiv");
@@ -105,7 +108,11 @@ namespace HFUChat {
             let message: HTMLElement = document.createElement("p");
             message.innerHTML = chatValue[i].message + " ";
             let time: HTMLElement = document.createElement("p");
-            time.innerHTML = chatValue[i].time;
+            let minutes: number | string = currentDateNew.getMinutes();
+            if (minutes < 10)
+                minutes = "0" + currentDateNew.getMinutes();
+
+            time.innerHTML = currentDateNew.getHours() + ":" + minutes;
             time.setAttribute("class", "timeDiv");
 
             messageDiv.appendChild(username);
