@@ -49,7 +49,7 @@ namespace HFUChat {
             }
         }
         else
-            alert("Es wurden nicht alle Daten, die zum registrieren benötigt werden, angegeben");
+            alert("Es wurden nicht alle Daten, die zum Registrieren benötigt werden, angegeben");
     }
 
     function handleLogout(): void {

@@ -73,20 +73,20 @@ export namespace HFUChat {
           }
           break;
 
-        case "/nachrichtEins":
-          formularData = mongoClient.db("HFUChat").collection("NachrichtEins");
+        case "/nachrichtFlirt":
+          formularData = mongoClient.db("HFUChat").collection("HFUFlirt");
           insertMessage(<string>url.query.username, <string>url.query.message, <string>url.query.date);
           _response.end();
           break;
 
-        case "/nachrichtZwei":
-          formularData = mongoClient.db("HFUChat").collection("NachrichtZwei");
+        case "/nachrichtSpam":
+          formularData = mongoClient.db("HFUChat").collection("HFUSpam");
           insertMessage(<string>url.query.username, <string>url.query.message, <string>url.query.date);
           _response.end();
           break;
 
         case "/receiveChatOne":
-          formularData = mongoClient.db("HFUChat").collection("NachrichtEins");
+          formularData = mongoClient.db("HFUChat").collection("HFUFlirt");
           resultString = "";
           formularData.find({}).toArray(function(err: Mongo.MongoError, result: string[]): void {
             if (err)
@@ -105,7 +105,7 @@ export namespace HFUChat {
           break;
           
         case "/receiveChatTwo":
-            formularData = mongoClient.db("HFUChat").collection("NachrichtZwei");
+            formularData = mongoClient.db("HFUChat").collection("HFUSpam");
             resultString = "";
             formularData.find({}).toArray(function(err: Mongo.MongoError, result: string[]): void {
               if (err)
@@ -128,18 +128,7 @@ export namespace HFUChat {
     }
   }
 
-
   function insertMessage(_username: string, _message: string, _date: string): void {
-    // let current: Date = new Date();
-    // let minutes: number | string = current.getMinutes();
-    // if (minutes < 10)
-    //   minutes = "0" + current.getMinutes();
-    
-    // console.log(current);
-    // let currentTime: string = current.getHours() + ":" + minutes;
-    // let currentDate: string = current.toLocaleDateString("de-DE", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
-    // formularData.insertOne({username: _username, message: _message, time: currentTime, date: currentDate});
-    
     formularData.insertOne({username: _username, message: _message, date: _date});
   }
 }

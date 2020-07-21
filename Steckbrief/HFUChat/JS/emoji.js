@@ -1,7 +1,7 @@
 "use strict";
 var HFUChat;
 (function (HFUChat) {
-    let emojisList = ["😭", "😂", "🔥", "❤️", "🍆", "😍", "🙈", "💦", "🙄", "😫", "🤔", "😌", "🤣", "✔️", "👌"];
+    let emojisList = ["😭", "😂", "🙄", "😫", "🤔", "😌", "🤣", "😍", "🔥", "❤️", "🍆", "🙈", "💦", "✔️", "👌", "👍"];
     let emojiDiv1 = document.getElementById("emojis1");
     let emojiDiv2 = document.getElementById("emojis2");
     for (let i = 0; i < emojisList.length; i++) {

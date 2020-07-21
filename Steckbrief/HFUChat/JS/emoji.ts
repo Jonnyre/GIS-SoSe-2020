@@ -1,5 +1,5 @@
 namespace HFUChat {
-    let emojisList: string[] = ["😭", "😂", "🔥", "❤️", "🍆", "😍", "🙈", "💦", "🙄", "😫", "🤔", "😌", "🤣", "✔️", "👌"];
+    let emojisList: string[] = ["😭", "😂", "🙄", "😫", "🤔", "😌", "🤣", "😍", "🔥", "❤️", "🍆", "🙈", "💦", "✔️", "👌", "👍"];
     let emojiDiv1: HTMLDivElement = <HTMLDivElement>document.getElementById("emojis1");
     let emojiDiv2: HTMLDivElement = <HTMLDivElement>document.getElementById("emojis2");
     for (let i: number = 0; i < emojisList.length; i++) {

@@ -8,7 +8,6 @@ namespace HFUChat {
 
     let formData: FormData;
 
-    //#region Listener anlegen
     let absendenEins: HTMLButtonElement = <HTMLButtonElement> document.getElementById("absenden1");
     absendenEins.addEventListener("click", handleAbsendenEins);
 
@@ -20,7 +19,6 @@ namespace HFUChat {
     
     let inputChat2: HTMLInputElement = <HTMLInputElement> document.getElementById("nachricht2");
     inputChat2.addEventListener("keyup", handleChat2Enter);
-    //#endregion
 
     export async function setServerURL(_serverParam: string): Promise<string> {
         let serverURL: string = getServerUrl();
@@ -38,7 +36,7 @@ namespace HFUChat {
 
     function handleAbsendenEins(): void {
         if (localStorage.getItem("username")) {
-            sendMessage("nachricht1", "/nachrichtEins");
+            sendMessage("nachricht1", "/nachrichtFlirt");
             setChatText("1", "/receiveChatOne");
         }
         else 
@@ -47,7 +45,7 @@ namespace HFUChat {
 
     function handleAbsendenZwei(): void {
         if (localStorage.getItem("username")) {
-            sendMessage("nachricht2", "/nachrichtZwei");
+            sendMessage("nachricht2", "/nachrichtSpam");
             setChatText("2", "/receiveChatTwo");
         }
         else
@@ -82,51 +80,54 @@ namespace HFUChat {
 
         let response: Response = await fetch(serverURL);
         let responseString: string = await response.json();
-        let chatValue: ChatValues[] = await JSON.parse(responseString);
+        if (responseString != "[]") {
+            let chatValue: ChatValues[] = await JSON.parse(responseString);
 
-        let currentDate: Date = new Date(chatValue[0].date);
-        let currentDateString: string = currentDate.toLocaleDateString("de-DE", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
-        let dateDiv: HTMLDivElement = document.createElement("div");
-        dateDiv.innerText = currentDateString;
-        chat.appendChild(dateDiv);
+            let currentDate: Date = new Date(chatValue[0].date);
+            let currentDateString: string = currentDate.toLocaleDateString("de-DE", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
+            let dateDiv: HTMLDivElement = document.createElement("div");
+            dateDiv.innerText = currentDateString;
+            chat.appendChild(dateDiv);
 
-        for (let i: number = 0; i < chatValue.length; i++) {
-            let currentDateNew: Date = new Date(chatValue[i].date);
-            let currentDateStringNew: string = currentDateNew.toLocaleDateString("de-DE", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
-            if (currentDateString != currentDateStringNew) {
-                let nextDateDiv: HTMLDivElement = document.createElement("div");
-                nextDateDiv.innerText = currentDateStringNew;
-                chat.appendChild(nextDateDiv);
-                currentDateString = currentDateStringNew;
-            }
-            let messageDiv: HTMLDivElement = document.createElement("div");
-            messageDiv.setAttribute("class", "messageDiv");
+            for (let i: number = 0; i < chatValue.length; i++) {
+                let currentDateNew: Date = new Date(chatValue[i].date);
+                let currentDateStringNew: string = currentDateNew.toLocaleDateString("de-DE", {weekday: "long", year: "numeric", month: "long", day: "numeric"});
+                if (currentDateString != currentDateStringNew) {
+                    let nextDateDiv: HTMLDivElement = document.createElement("div");
+                    nextDateDiv.innerText = currentDateStringNew;
+                    chat.appendChild(nextDateDiv);
+                    currentDateString = currentDateStringNew;
+                }
+                let messageDiv: HTMLDivElement = document.createElement("div");
+                messageDiv.setAttribute("class", "messageDiv");
 
-            let username: HTMLElement = document.createElement("p");
-            username.innerHTML = chatValue[i].username + ": ";
-            
-            let message: HTMLElement = document.createElement("p");
-            message.innerHTML = chatValue[i].message + " ";
-            let time: HTMLElement = document.createElement("p");
-            let minutes: number | string = currentDateNew.getMinutes();
-            if (minutes < 10)
-                minutes = "0" + currentDateNew.getMinutes();
-
-            time.innerHTML = currentDateNew.getHours() + ":" + minutes;
-            time.setAttribute("class", "timeDiv");
-
-            messageDiv.appendChild(username);
-            messageDiv.appendChild(message);
-            messageDiv.appendChild(time);
-
-            if (chatValue[i].username == localStorage.getItem("username"))
-                messageDiv.setAttribute("style", "background-color:#98FB98");
-            else
-                messageDiv.setAttribute("style", "background-color:white");
+                let username: HTMLElement = document.createElement("p");
+                username.innerHTML = chatValue[i].username + ": ";
                 
-            chat.appendChild(messageDiv);
+                let message: HTMLElement = document.createElement("p");
+                message.innerHTML = chatValue[i].message + " ";
+                let time: HTMLElement = document.createElement("p");
+                let minutes: number | string = currentDateNew.getMinutes();
+                if (minutes < 10)
+                    minutes = "0" + currentDateNew.getMinutes();
+
+                time.innerHTML = currentDateNew.getHours() + ":" + minutes;
+                time.setAttribute("class", "timeDiv");
+
+                messageDiv.appendChild(username);
+                messageDiv.appendChild(message);
+                messageDiv.appendChild(time);
+
+                if (chatValue[i].username == localStorage.getItem("username"))
+                    messageDiv.setAttribute("style", "background-color:#98FB98");
+                else
+                    messageDiv.setAttribute("style", "background-color:white");
+                    
+                chat.appendChild(messageDiv);
+            }
+            chat.scrollTop = chat.scrollHeight;
         }
-        chat.scrollTop = chat.scrollHeight;
+        
     }
 
     function handleChat1Enter(_event: KeyboardEvent): void {
