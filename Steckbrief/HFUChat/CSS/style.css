@@ -118,7 +118,7 @@ main > input[type=image]:hover{
     background-color: darkgrey;
 }
 
-#emojis1 > a:hover{
+#emojis1 > a:hover, #emojis2 > a:hover{
     cursor: pointer;
 }
 
