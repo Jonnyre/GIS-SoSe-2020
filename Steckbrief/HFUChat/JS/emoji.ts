@@ -4,14 +4,12 @@ namespace HFUChat {
     let emojiDiv2: HTMLDivElement = <HTMLDivElement>document.getElementById("emojis2");
     for (let i: number = 0; i < emojisList.length; i++) {
         let emoji: HTMLAnchorElement = document.createElement("a");
-        emoji.setAttribute("href", "#");
         emoji.setAttribute("class", "emoji1");
         emoji.innerText = emojisList[i];
         emoji.addEventListener("click", function(): void {handleEmoji1(emojisList[i]); });
         emojiDiv1.appendChild(emoji);
 
         let emoji2: HTMLAnchorElement = document.createElement("a");
-        emoji2.setAttribute("href", "#");
         emoji2.setAttribute("class", "emoji2");
         emoji2.innerText = emojisList[i];
         emoji2.addEventListener("click", function(): void {handleEmoji2(emojisList[i]); });

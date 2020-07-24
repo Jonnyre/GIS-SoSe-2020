@@ -7,7 +7,7 @@ body{
     position: absolute;
     left: 40%;
     top: 80%;
-    width: 400px;
+    width: 300px;
     align-content: center;
 }
 
@@ -86,7 +86,7 @@ body{
     font-style: italic;
 }
 
-.title{
+header > h1{
     position: absolute;
     top: 0px;
     color: darkgreen;
@@ -114,6 +114,21 @@ body{
     right: 580px;
 }
 
+main > input[type=image]:hover{
+    background-color: darkgrey;
+}
+
+#emojis1 > a:hover{
+    cursor: pointer;
+}
+
+#form > label{
+    margin-left: 5px;
+}
+
+#form > input[type=password]{
+    margin-left: 25px;
+}
 @media only screen and (max-width: 600px)
 {
     .messagecontainer{

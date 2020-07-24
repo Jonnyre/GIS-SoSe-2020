@@ -6,13 +6,11 @@ var HFUChat;
     let emojiDiv2 = document.getElementById("emojis2");
     for (let i = 0; i < emojisList.length; i++) {
         let emoji = document.createElement("a");
-        emoji.setAttribute("href", "#");
         emoji.setAttribute("class", "emoji1");
         emoji.innerText = emojisList[i];
         emoji.addEventListener("click", function () { handleEmoji1(emojisList[i]); });
         emojiDiv1.appendChild(emoji);
         let emoji2 = document.createElement("a");
-        emoji2.setAttribute("href", "#");
         emoji2.setAttribute("class", "emoji2");
         emoji2.innerText = emojisList[i];
         emoji2.addEventListener("click", function () { handleEmoji2(emojisList[i]); });
